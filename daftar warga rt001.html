@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>evolution is my revolution</title>
+
+<style>
+body {
+  background-color: black;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+  padding: 20px;
+  font-size: 12px;
+  text-align: left;
+}
+
+pre { 
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
+  letter-spacing: 1px; 
+  line-height: 1.5; 
+}
+
+.typing {
+  border-right: 2px solid #00ff00;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor { 
+  50% { border-color: transparent; } 
+}
+
+/* ============================
+   KEDIP BARIS < 2 BULAN
+   ============================ */
+.baris-kedip-hijau {
+  animation: kedipHijauBaris 0.6s infinite;
+}
+
+@keyframes kedipHijauBaris {
+  0%   { background-color: rgba(0,255,0,0.1); }
+  50%  { background-color: rgba(0,80,0,0.3); }
+  100% { background-color: rgba(0,255,0,0.1); }
+}
+
+/* ============================
+   KEDIP BARIS ≥ 2 TAHUN
+   ============================ */
+.baris-kedip-merah {
+  animation: kedipMerahBaris 0.6s infinite;
+}
+
+@keyframes kedipMerahBaris {
+  0%   { background-color: rgba(255,0,0,0.1); }
+  50%  { background-color: rgba(80,0,0,0.3); }
+  100% { background-color: rgba(255,0,0,0.1); }
+}
+
+/* KEDIP TEKS */
+.blink-hijau {
+  color: #00ff00;
+  animation: kedipHijau 0.5s infinite;
+}
+
+@keyframes kedipHijau {
+  0%   { color: #00ff00; }
+  50%  { color: #003300; }
+  100% { color: #00ff00; }
+}
+
+.blink-merah {
+  color: #ff0000;
+  animation: kedipMerah 0.5s infinite;
+}
+
+@keyframes kedipMerah {
+  0%   { color: #ff0000; }
+  50%  { color: #330000; }
+  100% { color: #ff0000; }
+}
+
+/* PNS warna kuning */
+.yellow { 
+  color: #ffff00; 
+  font-weight: bold; 
+}
+
+.hidden { display: none; }
+
+/* Tombol */
+.button-container {
+  text-align: center;
+  margin-top: 25px;
+}
+
+button {
+  background-color: black;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  font-family: "Courier New", monospace;
+  padding: 8px 20px;
+  font-size: 12px;
+  margin: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #00ff00;
+  color: black;
+  font-weight: bold;
+}
+
+button.download-btn {
+  color: #ff0000;
+  border-color: #ff0000;
+  animation: blinkRedBtn 0.5s infinite;
+}
+
+@keyframes blinkRedBtn {
+  0% { color: #ff0000; }
+  50% { color: #330000; }
+  100% { color: #ff0000; }
+}
+
+button.download-btn:hover {
+  background-color: #ff0000;
+  color: black;
+  animation: none;
+}
+
+/* Running text */
+#runningText {
+  color: #00ff00;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#runningText span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: runText 15s linear infinite;
+}
+
+@keyframes runText {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* RESPONSIVE SUPER KECIL */
+@media (max-width: 1100px) {
+  pre { transform: scale(0.65); transform-origin: top left; }
+}
+
+@media (max-width: 800px) {
+  pre { transform: scale(0.45); transform-origin: top left; }
+}
+
+@media (max-width: 600px) {
+  pre { transform: scale(0.35); transform-origin: top left; }
+}
+
+@media (max-width: 450px) {
+  pre { transform: scale(0.30); transform-origin: top left; }
+}
+
+pre {
+    white-space: pre !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    display: block;
+    letter-spacing: 1px;
+}
+
+/* KECILKAN TEKS */
+#terminal {
+    font-size: 10px !important;
+}
+
+@media (max-width: 1100px) { #terminal { font-size: 8px !important; } }
+@media (max-width: 800px) { #terminal { font-size: 7px !important; } }
+@media (max-width: 600px) { #terminal { font-size: 6px !important; } }
+  
+.button-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  margin-top:15px;
+}
+/* KEDIP KUNING */
+.baris-kedip-kuning {
+  animation: kedipKuningBaris 0.6s infinite;
+}
+
+@keyframes kedipKuningBaris {
+  0%   { background-color: rgba(255,255,0,0.08); }
+  50%  { background-color: rgba(80,80,0,0.3); }
+  100% { background-color: rgba(255,255,0,0.08); }
+}
+
+.blink-kuning {
+  color: #ffff00;
+  animation: kedipKuning 0.5s infinite;
+}
+
+@keyframes kedipKuning {
+  0%   { color: #ffff00; }
+  50%  { color: #555500; }
+  100% { color: #ffff00; }
+}
+</style>
+</head>
+<body>
+
+<!-- Bagian Loading -->
+<div id="loading">
+  <p>>> initializing connection...</p>
+  <p class="hidden">>>> accessing database node...</p>
+  <p class="hidden">>>> verifying security clearance...</p>
+  <p class="hidden">>>> clearance level verified ✓</p>
+  <p class="hidden">>>> retrieving personel PUSLAT...</p>
+</div>
+
+<!-- Bagian Utama -->
+<div id="main" class="hidden">
+  <div id="runningText">
+    <span>THIS DATA IS CONFIDENTIAL - FOR THE RT 001 DURI KOSAMBI CENTER ENVIRONMENT ONLY</span>
+  </div>
+<pre id="terminal" class="typing"></pre>
+</div>
+
+<script>
+/* ================== LOADING ================== */
+const lines = document.querySelectorAll("#loading p");
+let delay = 800;
+
+lines.forEach((line, index) => {
+  setTimeout(() => {
+    line.classList.remove("hidden");
+    if (index === lines.length - 1) {
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("main").classList.remove("hidden");
+        startTyping();
+      }, 1000);
+    }
+  }, delay * (index + 1));
+});
+
+
+/* ================== HITUNG MASA DINAS ================== */
+function hitungMasa(tmt) {
+
+  if (!tmt) return "-";
+
+  let start;
+
+  // format dd/mm/yyyy
+  if (typeof tmt === "string" && tmt.includes("/")) {
+
+    const p = tmt.split("/");
+
+    const hari = parseInt(p[0], 10);
+    const bulan = parseInt(p[1], 10) - 1;
+    const tahun = parseInt(p[2], 10);
+
+    start = new Date(tahun, bulan, hari);
+  }
+
+  else {
+
+    start = new Date(tmt);
+  }
+
+  if (isNaN(start.getTime())) return "-";
+
+  const today = new Date();
+
+  // reset jam
+  today.setHours(0,0,0,0);
+  start.setHours(0,0,0,0);
+
+  // kalau masa depan
+  if (start > today) {
+    return "BELUM MASUK";
+  }
+
+  let tahun = today.getFullYear() - start.getFullYear();
+  let bulan = today.getMonth() - start.getMonth();
+  let hari = today.getDate() - start.getDate();
+
+  if (hari < 0) {
+
+    bulan--;
+
+    const lastMonth = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      0
+    ).getDate();
+
+    hari += lastMonth;
+  }
+
+  if (bulan < 0) {
+
+    tahun--;
+    bulan += 12;
+  }
+
+  return `${tahun} th ${bulan} bln ${hari} hr`;
+}
+function formatTanggal(tgl) {
+
+  if (!tgl) return "-";
+
+  // Jika sudah format Indonesia dd/mm/yyyy
+  if (typeof tgl === "string" && tgl.includes("/")) {
+
+    const p = tgl.split("/");
+
+    // pastikan dd/mm/yyyy
+    if (p.length === 3) {
+
+      const hari = p[0].padStart(2, "0");
+      const bulan = p[1].padStart(2, "0");
+      const tahun = p[2];
+
+      return `${hari}/${bulan}/${tahun}`;
+    }
+  }
+
+  // Jika Date object / ISO
+  const d = new Date(tgl);
+
+  if (isNaN(d.getTime())) return "-";
+
+  const hari = String(d.getDate()).padStart(2, "0");
+  const bulan = String(d.getMonth() + 1).padStart(2, "0");
+  const tahun = d.getFullYear();
+
+  return `${hari}/${bulan}/${tahun}`;
+}
+
+
+/* ================== FETCH DATA (AUTO: PERSONEL MASUK) ================== */
+async function fetchData() {
+
+  const url =
+    "https://script.google.com/macros/s/AKfycbyKpkLev2RX4TXzXdXEJ8Urb9V-av4CB3oTaloT2ta11uzyG9YaDw-cn999GywGd9To/exec?sheet=Personel%20Masuk";
+    "https://script.google.com/macros/s/AKfycbyKpkLev2RX4TXzXdXEJ8Urb9V-av4CB3oTaloT2ta11uzyG9YaDw-cn999GywGd9To/exec?sheet=Personel%20Keluar";    
+
+  const res = await fetch(url);
+  return res.json();
+}
+
+
+/* ================== EFEK KETIK ================== */
+function getDateTime() {
+
+  const now = new Date();
+
+  const tanggal =
+    String(now.getDate()).padStart(2, "0") + "/" +
+    String(now.getMonth() + 1).padStart(2, "0") + "/" +
+    now.getFullYear();
+
+  const jam =
+    String(now.getHours()).padStart(2, "0") + ":" +
+    String(now.getMinutes()).padStart(2, "0") + ":" +
+    String(now.getSeconds()).padStart(2, "0");
+
+  return `${tanggal} ${jam}`;
+}
+function ketikInfo() {
+
+  const text = "Daftar personel puslat kodiklatau terintegrasi";
+  const el = document.getElementById("typingInfo");
+
+  function mulaiKetik() {
+
+    el.innerHTML = "";
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+
+      el.innerHTML += text.charAt(i);
+
+      i++;
+
+      if (i >= text.length) {
+
+        clearInterval(interval);
+
+        setTimeout(mulaiKetik, 1500);
+      }
+
+    }, 40);
+  }
+
+  mulaiKetik();
+}
+async function startTyping() {
+  const terminal = document.getElementById("terminal");
+
+  const textBefore = `
+CLASSIFICATION: `;
+  const textAfterTop = `
+`;
+
+  const rahasia = "RAHASIA";
+
+  const tableHeader = `
+
+  
+                                                              DAFTAR WARGA RT 001 DURI KOSAMBI
+Klasifikasi  :  RAHASIA
+STATUS       :  Update
+DATE/TIME    :  <span id="liveTime" class="blink-merah">${getDateTime()}</span>
+`;
+  const footer = `
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+* Center staff incoming personnel list - live connected to Spreadsheet
+* For internal RT 001 DURI KOSAMBI environment only
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+<div class="button-container" id="buttons">
+  <button onclick="window.location.href='personelmasuk.html'">PERSONEL MASUK</button>
+  <button onclick="window.location.href='personelkeluar.html'">PERSONEL KELUAR</button>
+  <button onclick="window.location.href='database.html'">BACK TO DATABASE</button>
+  <button class="download-btn" onclick="downloadFile()">DOWNLOAD</button>
+</div>
+`;
+
+  let i = 0;
+  let step = 0;
+  let spanRahasia;
+
+  function type() {
+
+    if (step === 0) {
+
+      if (i < textBefore.length) {
+
+        terminal.textContent += textBefore.charAt(i++);
+        return setTimeout(type, 1);
+      }
+
+      step = 1;
+      i = 0;
+
+      spanRahasia = document.createElement("span");
+      spanRahasia.classList.add("blink-merah");
+
+      terminal.appendChild(spanRahasia);
+
+      return type();
+    }
+
+    if (step === 1) {
+
+      if (i < rahasia.length) {
+
+        spanRahasia.textContent += rahasia.charAt(i++);
+        return setTimeout(type, 30);
+      }
+
+      step = 2;
+      i = 0;
+
+      return type();
+    }
+
+    if (step === 2) {
+
+  if (i < textAfterTop.length) {
+
+    terminal.innerHTML += textAfterTop.charAt(i++);
+    return setTimeout(type, 1);
+  }
+
+  // HEADER
+  terminal.innerHTML += `
+                                                              DAFTAR PERSONEL PUSLAT KODIKLATAU
+PROVINSI     :  Banten
+KOTA         :  Tangerang
+RT/RW        :  001/004
+STATUS       :  Update' Mei 2026
+DATE/TIME    :  <span id="liveTime" class="blink-merah">${getDateTime()}</span>
+
+<span id="typingInfo" style="
+color:#777777;
+display:block;
+margin-top:2px;
+margin-bottom:2px;
+"></span>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+NO              NAMA                     PANGKAT                              JABATAN                 TMT MASUK        TMT KELUAR           KETERANGAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+`;
+
+  // BARU JALANKAN EFEK KETIK
+  setTimeout(() => {
+    ketikInfo();
+  }, 100);
+}
+  }
+
+  type();
+  setInterval(() => {
+
+  const dateElement = document.getElementById("liveTime");
+
+  if (dateElement) {
+    dateElement.innerHTML = getDateTime();
+  }
+
+}, 1000);
+
+  // tampilkan data
+  setTimeout(async () => {
+
+    const data = await fetchData();
+
+    data.forEach(row => {
+
+      // skip header spreadsheet
+      if (
+        !row.tmt ||
+        row.tmt === "TMT MASUK" ||
+        row.no === "NO" ||
+        String(row.no).includes("PUSLAT") ||
+        String(row.no).includes("DAFTAR") ||
+        String(row.no).includes("STATUS")
+      ) {
+        return;
+      }
+
+      const tmtFix = formatTanggal(row.tmt);
+
+      const masa = hitungMasa(tmtFix);
+
+      let masaFix = masa;
+
+      const angka = masa.match(/\d+/g);
+
+const tahun = angka ? parseInt(angka[0]) : 0;
+const bulan = angka ? parseInt(angka[1]) : 0;
+const hari  = angka ? parseInt(angka[2]) : 0;
+
+const nomor = parseInt(row.no);
+
+let wrapStart = "";
+let wrapEnd = "";
+let warnaText = "";
+
+/* ===================================================
+   NO 1 s.d 19
+=================================================== */
+
+if (nomor >= 1 && nomor <= 19) {
+
+  // HIJAU NORMAL
+  if (
+    tahun < 1 ||
+    (tahun === 1 && bulan <= 5)
+  ) {
+
+    warnaText = "#00ff00";
+  }
+
+  // KUNING NORMAL
+  else if (
+    tahun === 1 &&
+    bulan >= 6 &&
+    bulan <= 11
+  ) {
+
+    warnaText = "#ffff00";
+  }
+
+  // MERAH KEDIP
+  else if (tahun >= 2) {
+
+    wrapStart = `<span class="baris-kedip-merah">`;
+    wrapEnd = `</span>`;
+
+    masaFix = `<span class="blink-merah">${masa}</span>`;
+  }
+}
+
+/* ===================================================
+   NO 20 s.d 68
+=================================================== */
+
+else if (nomor >= 20 && nomor <= 68) {
+
+  // HIJAU NORMAL
+  if (
+    tahun < 3 ||
+    (tahun === 3 && bulan === 0 && hari === 0)
+  ) {
+
+    warnaText = "#00ff00";
+  }
+
+  // KUNING NORMAL
+  else if (
+    (tahun === 3 && (bulan > 0 || hari > 0)) ||
+    (tahun === 3 && bulan <= 11)
+  ) {
+
+    warnaText = "#ffff00";
+  }
+
+  // MERAH KEDIP
+  else if (
+    tahun >= 4
+  ) {
+
+    wrapStart = `<span class="baris-kedip-merah">`;
+    wrapEnd = `</span>`;
+
+    masaFix = `<span class="blink-merah">${masa}</span>`;
+  }
+}
+
+/* ===================================================
+   NO 69 s.d 71
+   NORMAL TANPA WARNA
+=================================================== */
+
+else if (nomor >= 69 && nomor <= 71) {
+
+  warnaText = "";
+}
+
+/* ===================================================
+   APPLY WARNA
+=================================================== */
+
+if (!masaFix.includes("blink-merah")) {
+
+  if (warnaText !== "") {
+
+    masaFix = `<span style="color:${warnaText};">${masa}</span>`;
+  }
+}
+
+      let line =
+        `${String(row.no).padEnd(5)}` +
+        `${String(row.nama).padEnd(35)}` +
+        `${String(row.pangkat).padEnd(20)}` +
+        `${String(row.jabatan).padEnd(42)}` +
+        `${tmtFix.padEnd(20)}` +
+        `${String(row.keterangan || "").padEnd(15)}` +
+        `${masaFix}\n`;
+
+      if (
+        String(row.pangkat)
+        .toUpperCase()
+        .includes("PNS")
+      ) {
+
+        line = `<span class="yellow">${line}</span>`;
+      }
+
+      terminal.insertAdjacentHTML(
+        "beforeend",
+        wrapStart + line + wrapEnd
+      );
+
+    });
+
+    terminal.insertAdjacentHTML(
+        "beforeend",
+        footer
+    );
+
+    terminal.classList.remove("typing");    
+
+  }, 2500);
+}
+
+/* ================== DOWNLOAD ================== */
+function downloadFile() {
+  const fileId = "1PWOrFxChuYUVgYPEfr5AzDrUpo6j7Zv-QVw-VlqhXg8";
+  const gid = "899021028";
+  const url =
+    `https://docs.google.com/spreadsheets/d/${fileId}/export?` +
+    `format=pdf` +
+    `&gid=${gid}` +
+    `&size=A4` +
+    `&portrait=false` +
+    `&fitw=true` +
+    `&sheetnames=false` +
+    `&printtitle=false` +
+    `&pagenumbers=false` +
+    `&gridlines=false` +
+    `&fzr=false`;
+
+  // paksa tab baru
+  const link = document.createElement("a");
+link.href = url;
+link.download = "data2.pdf";
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+}
+
+  async function loadPersonelMasuk() {
+  const terminal = document.getElementById("terminal");
+  // Bersihkan isi terminal dan tampilkan header sementara
+  terminal.innerHTML = `
+====================================
+| FILE: PERSONEL MASUK PUSLAT      |
+| CLASSIFICATION: <span class="blink-merah">RAHASIA</span>
+====================================
+
+---------------------------------------------------------------------------------------------------------------
+`;
+
+  try {
+    // Pastikan URL Apps Script benar — ganti dengan URL yang kamu pakai jika beda
+    const url =
+      "https://script.google.com/macros/s/AKfycbyKpkLev2RX4TXzXdXEJ8Urb9V-av4CB3oTaloT2ta11uzyG9YaDw-cn999GywGd9To/exec?sheet=Personel%20Masuk";
+
+    const res = await fetch(url);
+    const json = await res.json();
+
+    // Jika struktur response berbeda (mis. {data: [...]}) sesuaikan:
+    const data = json.data || json; // fallback ke json langsung
+
+    if (!Array.isArray(data) || data.length === 0) {
+      terminal.innerHTML += "\nTidak ditemukan data pada sheet Personel Masuk.";
+      return;
+    }
+
+    // Jika response adalah array of arrays (sheet.getValues()) konversi ke objek sederhana
+    // Cek apakah tiap row adalah array (kolom) atau object (no,nama,...)
+    if (Array.isArray(data[0])) {
+      // anggap baris pertama adalah header → mulai dari index 1
+      for (let r = 1; r < data.length; r++) {
+        const row = data[r];
+        const no = (row[0] ?? "").toString().padEnd(5);
+        const nama = (row[1] ?? "").toString().padEnd(35);
+        const pangkat = (row[2] ?? "").toString().padEnd(20);
+        const jabatan = (row[3] ?? "").toString().padEnd(42);
+        const tmt = (row[4] ?? "").toString().padEnd(20);
+        const ket = (row[5] ?? "").toString().padEnd(15);
+        const masa = hitungMasa(tmt);
+        let masaFix = masa;
+        const angka = masa.match(/\d+/g);
+        const tahun = angka ? parseInt(angka[0]) : 0;
+        const bulan = angka ? parseInt(angka[1]) : 0;
+
+        let wrapStart = "", wrapEnd = "";
+        if (tahun === 0 && bulan < 2) {
+          wrapStart = `<span class="baris-kedip-hijau">`;
+          wrapEnd = `</span>`;
+          masaFix = `<span class="blink-hijau">${masa}</span>`;
+        } else if (tahun >= 2) {
+          wrapStart = `<span class="baris-kedip-merah">`;
+          wrapEnd = `</span>`;
+          masaFix = `<span class="blink-merah">${masa}</span>`;
+        }
+
+        let line = `${no}${nama}${pangkat}${jabatan}${tmt}${ket}${masaFix}\n`;
+
+        if (String(pangkat).toUpperCase().includes("PNS")) {
+          line = `<span class="yellow">${line}</span>`;
+        }
+
+        terminal.innerHTML += wrapStart + line + wrapEnd;
+      }
+    } else {
+      // data adalah array of objects {no,nama,pangkat,...}
+      data.forEach(row => {
+        const tmtFix = formatTanggal(row.tmt);
+        const masa = hitungMasa(tmtFix);
+        let masaFix = masa;
+        const angka = masa.match(/\d+/g);
+        const tahun = angka ? parseInt(angka[0]) : 0;
+        const bulan = angka ? parseInt(angka[1]) : 0;
+
+        let wrapStart = "", wrapEnd = "";
+        if (tahun === 0 && bulan < 2) {
+          wrapStart = `<span class="baris-kedip-hijau">`;
+          wrapEnd = `</span>`;
+          masaFix = `<span class="blink-hijau">${masa}</span>`;
+        } else if (tahun >= 2) {
+          wrapStart = `<span class="baris-kedip-merah">`;
+          wrapEnd = `</span>`;
+          masaFix = `<span class="blink-merah">${masa}</span>`;
+        }
+
+        const no = (row.no ?? "").toString().padEnd(5);
+        const nama = (row.nama ?? "").toString().padEnd(35);
+        const pangkat = (row.pangkat ?? "").toString().padEnd(20);
+        const jabatan = (row.jabatan ?? "").toString().padEnd(42);
+        const ket = (row.keterangan ?? "").toString().padEnd(15);
+
+        let line = `${no}${nama}${pangkat}${jabatan}${tmtFix.padEnd(20)}${ket}${masaFix}\n`;
+
+        if (String(pangkat).toUpperCase().includes("PNS")) {
+          line = `<span class="yellow">${line}</span>`;
+        }
+
+        terminal.innerHTML += wrapStart + line + wrapEnd;
+      });
+    }
+
+    terminal.innerHTML += `
+---------------------------------------------------------------------------------------------------------------
+* Center staff incoming personnel list - live connected to Spreadsheet
+* For internal RT 001 DURI KOSAMBI environment only
+---------------------------------------------------------------------------------------------------------------
+`;
+
+  } catch (err) {
+    console.error(err);
+    terminal.innerHTML += "\nGagal memuat data Personel Masuk.";
+  }
+}
+
+
+
+</script>
+<script>
+// Fullscreen untuk Android WebView / PWA
+function forceFullscreen() {
+  const elem = document.documentElement;
+
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(()=>{});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+
+// Deteksi jika dijalankan sebagai PWA atau WebView
+function isStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches || 
+          window.navigator.standalone === true);
+}
+
+// Jika PWA → langsung fullscreen
+if (isStandalone()) {
+  setTimeout(forceFullscreen, 500);
+}
+
+// Jika Android WebView → auto fullscreen
+if (navigator.userAgent.includes("wv") || navigator.userAgent.includes("Android")) {
+  setTimeout(forceFullscreen, 800);
+}
+
+// Browser biasa tetap butuh klik pertama
+document.addEventListener("click", function() {
+  forceFullscreen();
+}, { once: true });
+</script>
+
+</body>
+</html>
