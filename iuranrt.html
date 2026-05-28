@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>evolution is my REVOLUTION</title>
+<title>terminal system</title>
+
 <style>
 body{
   background:black;
@@ -12,24 +13,21 @@ body{
   padding:20px;
   font-size:12px;
 }
+
 pre{
   white-space:pre-wrap;
   line-height:1.5;
 }
+
 .typing{
   border-right:2px solid #00ff00;
   animation:blink 0.7s infinite;
 }
+
 @keyframes blink{50%{border-color:transparent;}}
-.blink-red{
-  color:red;
-  animation:redblink 0.5s infinite;
-}
-@keyframes redblink{
-  0%,100%{color:red;}
-  50%{color:#330000;}
-}
+
 .hidden{display:none;}
+
 button{
   background:black;
   color:#00ff00;
@@ -38,24 +36,36 @@ button{
   cursor:pointer;
   font-family:monospace;
 }
-button:hover{background:#00ff00;color:black;}
+
+button:hover{
+  background:#00ff00;
+  color:black;
+}
+
+/* TABLE */
 #tableContainer{
-  margin-top:20px;
+  margin-top:15px;
   overflow-x:auto;
 }
+
 table{
-  border-collapse:collapse;
   width:100%;
+  border-collapse:collapse;
   font-size:10px;
 }
+
 th,td{
   border:1px solid #00ff00;
   padding:4px;
   text-align:center;
 }
-th{font-weight:bold;}
+
+th{
+  font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
 <div id="loading">
@@ -63,8 +73,13 @@ th{font-weight:bold;}
 </div>
 
 <div id="main" class="hidden">
+
+  <!-- TERMINAL (TETAP UI LAMA) -->
   <pre id="terminal" class="typing"></pre>
+
+  <!-- TABLE TAMBAHAN (TIDAK MERUSAK UI) -->
   <div id="tableContainer"></div>
+
 </div>
 
 <div id="buttons" class="hidden">
@@ -73,8 +88,9 @@ th{font-weight:bold;}
 </div>
 
 <script>
-const JSON_URL = "https://script.google.com/macros/s/AKfycbxG2QC7-7XV85pCJA32jLscOaHa_UCoRSeAIlFmtKZ2OC_UVH9riEjxSLaNbcdzDwW4/exec"; // ganti ini
-const PDF_URL = "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";   // ganti ini
+
+const URL_JSON = "https://script.google.com/macros/s/AKfycbxG2QC7-7XV85pCJA32jLscOaHa_UCoRSeAIlFmtKZ2OC_UVH9riEjxSLaNbcdzDwW4/exec";
+const URL_PDF  = "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";
 
 /* LOADING */
 setTimeout(()=>{
@@ -83,10 +99,10 @@ setTimeout(()=>{
   startTyping();
 },1000);
 
-/* FETCH DATA */
+/* FETCH DATA SPREADSHEET */
 async function fetchData(){
   try{
-    const res = await fetch(JSON_URL);
+    const res = await fetch(URL_JSON);
     return await res.json();
   }catch(e){
     console.log(e);
@@ -97,43 +113,65 @@ async function fetchData(){
 /* DOWNLOAD PDF */
 async function downloadFile(){
   try{
-    const res = await fetch(PDF_URL);
+    const res = await fetch(URL_PDF);
     const base64 = await res.text();
+
     const bin = atob(base64);
     const arr = new Uint8Array(bin.length);
-    for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+
+    for(let i=0;i<bin.length;i++){
+      arr[i]=bin.charCodeAt(i);
+    }
+
     const blob = new Blob([arr],{type:"application/pdf"});
     const url = URL.createObjectURL(blob);
+
     const a=document.createElement("a");
     a.href=url;
-    a.download="file.pdf";
+    a.download="data.pdf";
     a.click();
-  }catch(e){ alert("ERROR DOWNLOAD"); }
+
+  }catch(e){
+    alert("DOWNLOAD ERROR");
+  }
 }
 
-/* TYPING */
+/* ANIMASI TERMINAL */
 async function startTyping(){
+
   const t=document.getElementById("terminal");
-  let text="SYSTEM ONLINE...\nCLASSIFICATION: ";
+
+  let text =
+`SYSTEM ONLINE
+CONNECTING DATABASE...
+STATUS: OK
+CLASSIFICATION: `;
+
   let i=0;
+
   function type(){
-    if(i<text.length){ t.textContent+=text[i++]; setTimeout(type,30); }
-    else{
-      t.innerHTML+=" <span class='blink-red'>RAHASIA</span>\n\n";
+    if(i<text.length){
+      t.textContent+=text[i++];
+      setTimeout(type,20);
+    }else{
+      t.innerHTML += "<span style='color:red'>RAHASIA</span>\n\n";
       loadTable();
     }
   }
+
   type();
 }
 
-/* TABLE */
+/* TABLE SPREADSHEET */
 async function loadTable(){
+
   const data = await fetchData();
+
   let html = `
   <table>
     <tr>
       <th>No</th>
-      <th>Nama</th>
+      <th>Jabatan</th>
       <th>Jan</th>
       <th>Feb</th>
       <th>Mar</th>
@@ -150,11 +188,11 @@ async function loadTable(){
     </tr>
   `;
 
-  data.forEach((r,index)=>{
+  data.forEach((r,i)=>{
     html += `
     <tr>
-      <td>${index+1}</td>
-      <td>${r.nama||""}</td>
+      <td>${i+1}</td>
+      <td>${r.jabatan||""}</td>
       <td>${r.jan||""}</td>
       <td>${r.feb||""}</td>
       <td>${r.mart||""}</td>
@@ -173,9 +211,13 @@ async function loadTable(){
   });
 
   html += "</table>";
-  document.getElementById("tableContainer").innerHTML=html;
+
+  document.getElementById("tableContainer").innerHTML = html;
+
   document.getElementById("buttons").classList.remove("hidden");
 }
+
 </script>
+
 </body>
 </html>
