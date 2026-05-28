@@ -322,7 +322,7 @@ INVALID JSON RESPONSE
     data.forEach(row => {
 
       let line =
-`${String(row.no || "").padEnd(5)}${String(row.jabatan || "").padEnd(32)}${String(row.golongan || "").padEnd(10)}${String(row.pangkat || "").padEnd(26)}${String(row.korps || "").padEnd(20)}${String(row.keterangan || "")}\n`;
+`${String(row.no || "").padEnd(5)}${String(row.jabatan || "").padEnd(32)}${String(row.golongan || "").padEnd(10)}${String(row.pangkat || "").padEnd(12)}${String(row.korps || "").padEnd(20)}${String(row.keterangan || "")}\n`;
 
       if (
         String(row.pangkat || "")
