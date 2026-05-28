@@ -128,7 +128,9 @@ async function startTyping(){
 
 /* TABLE */
 async function loadTable(){
+
   const data = await fetchData();
+
   let html = `
   <table>
     <tr>
@@ -150,31 +152,32 @@ async function loadTable(){
     </tr>
   `;
 
-  data.forEach((r,index)=>{
+  data.forEach((r,i)=>{
+
     html += `
     <tr>
-      <td>${index+1}</td>
-      <td>${r.nama||""}</td>
-      <td>${r.jan||""}</td>
-      <td>${r.feb||""}</td>
-      <td>${r.mart||""}</td>
-      <td>${r.aprl||""}</td>
-      <td>${r.mei||""}</td>
-      <td>${r.jun||""}</td>
-      <td>${r.jul||""}</td>
-      <td>${r.agst||""}</td>
-      <td>${r.sept||""}</td>
-      <td>${r.okt||""}</td>
-      <td>${r.nov||""}</td>
-      <td>${r.des||""}</td>
-      <td>${r.keterangan||""}</td>
+      <td>${i+1}</td>
+      <td>${r.nama || r.jabatan || ""}</td>
+      <td>${r.jan || ""}</td>
+      <td>${r.feb || ""}</td>
+      <td>${r.mar || r.mart || ""}</td>
+      <td>${r.apr || r.aprl || ""}</td>
+      <td>${r.mei || ""}</td>
+      <td>${r.jun || ""}</td>
+      <td>${r.jul || ""}</td>
+      <td>${r.agst || ""}</td>
+      <td>${r.sept || ""}</td>
+      <td>${r.okt || ""}</td>
+      <td>${r.nov || ""}</td>
+      <td>${r.des || ""}</td>
+      <td>${r.keterangan || ""}</td>
     </tr>
     `;
   });
 
   html += "</table>";
-  document.getElementById("tableContainer").innerHTML=html;
-  document.getElementById("buttons").classList.remove("hidden");
+
+  document.getElementById("tableContainer").innerHTML = html;
 }
 </script>
 </body>
