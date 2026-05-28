@@ -356,8 +356,8 @@ function formatTanggal(tgl) {
 async function fetchData() {
 
   const url =
-    "https://script.google.com/macros/s/AKfycbyW22DpULn0n1gJHB-FE4yt-EMuZoy2y2x12zcpx8QJ4IQrsyfYNm1v6GNYSzdaGi7o/exec?sheet=warga%20masuk";
-    "https://script.google.com/macros/s/AKfycbxkyAQMsZVgm4LGeNr7WR0L1s9JUgz2p12ibWONIHtesRL4_eWCa_AZaLUvnr5TR0Ei/exec?sheet=warga%20pindah";    
+    "https://script.google.com/macros/s/AKfycbzl0otLluOrLH8rf3eHe0KzacBEZqkSgm-yt0G0Q83-S4ObrGpQdqtWgwunaSHJwEj2/exec?sheet=warga%20masuk";
+    "https://script.google.com/macros/s/AKfycbzl0otLluOrLH8rf3eHe0KzacBEZqkSgm-yt0G0Q83-S4ObrGpQdqtWgwunaSHJwEj2/exec?sheet=warga%20pindah";    
 
   const res = await fetch(url);
   return res.json();
@@ -735,7 +735,7 @@ document.body.removeChild(link);
   try {
     // Pastikan URL Apps Script benar — ganti dengan URL yang kamu pakai jika beda
     const url =
-      "https://script.google.com/macros/s/AKfycbyKpkLev2RX4TXzXdXEJ8Urb9V-av4CB3oTaloT2ta11uzyG9YaDw-cn999GywGd9To/exec?sheet=Personel%20Masuk";
+      "https://script.google.com/macros/s/AKfycbzl0otLluOrLH8rf3eHe0KzacBEZqkSgm-yt0G0Q83-S4ObrGpQdqtWgwunaSHJwEj2/exec?sheet=Personel%20Masuk";
 
     const res = await fetch(url);
     const json = await res.json();
