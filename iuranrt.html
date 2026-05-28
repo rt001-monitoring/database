@@ -322,9 +322,7 @@ INVALID JSON RESPONSE
     data.forEach(row => {
 
       let line =
-`${String(row.NO || "").padEnd(5)}${String(row.NAMA || "").padEnd(32)}${String(row.JAN || "").padEnd(12)}${String(row.FEB || "").padEnd(12)}${String(row.MART || "").padEnd(12)}
- ${String(row.APRL || "").padEnd(12)}${String(row.mei || "").padEnd(12)}${String(row.JUN || "").padEnd(12)}${String(row.JUL || "").padEnd(12)}${String(row.AGST || "").padEnd(12)}
- ${String(row.SEPT || "").padEnd(12)}\n`;
+`${String(row.NO || "").padEnd(5)}${String(row.NAMA || "").padEnd(32)}${String(row.JAN || "").padEnd(12)}${String(row.FEB || "").padEnd(12)}${String(row.MART || "").padEnd(12)}\n`;
 
       if (
         String(row.pangkat || "")
