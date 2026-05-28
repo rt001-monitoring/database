@@ -130,25 +130,7 @@ async function startTyping(){
 async function loadTable(){
   const data = await fetchData();
   let html = `
-  <table>
-    <tr>
-      <th>No</th>
-      <th>Nama</th>
-      <th>Jan</th>
-      <th>Feb</th>
-      <th>Mar</th>
-      <th>Apr</th>
-      <th>Mei</th>
-      <th>Jun</th>
-      <th>Jul</th>
-      <th>Agst</th>
-      <th>Sept</th>
-      <th>Okt</th>
-      <th>Nov</th>
-      <th>Des</th>
-      <th>Keterangan</th>
-    </tr>
-  `;
+  <table>  
 
   data.forEach((r,index)=>{
     html += `
