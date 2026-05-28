@@ -73,7 +73,7 @@ th{font-weight:bold;}
 </div>
 
 <script>
-const JSON_URL = "https://script.google.com/macros/library/d/13jtjzgAAmbgAW82RHEP75QR8RLyhEuxeeM4z5HIn5FMTfGS5Yje3jcUm/5"; // ganti ini
+const JSON_URL = "https://script.google.com/macros/s/AKfycbxG2QC7-7XV85pCJA32jLscOaHa_UCoRSeAIlFmtKZ2OC_UVH9riEjxSLaNbcdzDwW4/exec"; // ganti ini
 const PDF_URL = "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";   // ganti ini
 
 /* LOADING */
@@ -133,7 +133,7 @@ async function loadTable(){
   <table>
     <tr>
       <th>No</th>
-      <th>Nama</th>
+      <th>Jabatan</th>
       <th>Jan</th>
       <th>Feb</th>
       <th>Mar</th>
@@ -154,7 +154,7 @@ async function loadTable(){
     html += `
     <tr>
       <td>${index+1}</td>
-      <td>${r.nama||""}</td>
+      <td>${r.jabatan||""}</td>
       <td>${r.jan||""}</td>
       <td>${r.feb||""}</td>
       <td>${r.mart||""}</td>
