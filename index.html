@@ -1,1 +1,447 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+evolution is my revolution - Login Portal
+</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+/* VIDEO */
+
+video#bg-video{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
+}
+
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+rgba(0,0,0,.55);
+z-index:-1;
+}
+
+/* CONTENT */
+
+.content{
+position:fixed;
+top:50%;
+left:50%;
+transform:
+translate(-50%,-50%);
+width:90%;
+max-width:450px;
+text-align:center;
+font-family:
+Courier New;
+color:white;
+}
+
+h1{
+font-size:2em;
+margin-bottom:25px;
+text-shadow:
+0 0 8px #00ff00;
+line-height:.5;
+}
+
+form{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+input{
+width:100%;
+padding:12px;
+border:
+1px solid #00ff00;
+border-radius:6px;
+background:
+rgba(0,0,0,.3);
+color:white;
+font-size:1em;
+text-align:center;
+outline:none;
+}
+
+input::placeholder{
+color:#ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#00ff00;
+color:black;
+border:none;
+border-radius:6px;
+font-size:1em;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#00cc00;
+box-shadow:
+0 0 12px #00ff00;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+
+<video
+id="bg-video"
+autoplay
+muted
+loop
+playsinline>
+
+<source
+src=
+"Desain-tanpa-judul.mp4"
+type=
+"video/mp4">
+
+</video>
+
+<div class="overlay">
+</div>
+
+<!-- AUDIO -->
+
+<audio
+autoplay
+loop>
+
+<source
+src=
+"Hymne-TNI-Angkatan-Udara.aac"
+type=
+"audio/mpeg">
+
+</audio>
+
+<!-- LOGIN -->
+
+<div class="content">
+
+<h1>
+KETUA RT/001
+</h1>
+
+<h1>
+DURI KOSAMBI
+</h1>
+
+<form
+onsubmit=
+"return loginSuccess(event)">
+
+<input
+type="email"
+name="email"
+placeholder="Email"
+required
+autocomplete="off">
+
+<input
+type="password"
+name="password"
+placeholder="Password"
+required
+autocomplete="off">
+
+<button
+type="submit">
+
+LOGIN
+
+</button>
+
+</form>
+
+</div>
+
+<!-- FULLSCREEN -->
+
+<script>
+
+function forceFullscreen(){
+
+const elem=
+document.documentElement;
+
+if(
+elem.requestFullscreen
+){
+
+elem
+.requestFullscreen()
+.catch(()=>{});
+
+}
+
+}
+
+function isStandalone(){
+
+return(
+
+window.matchMedia(
+"(display-mode: standalone)"
+).matches
+
+||
+
+window.navigator
+.standalone===true
+
+);
+
+}
+
+if(
+isStandalone()
+){
+
+setTimeout(
+forceFullscreen,
+500
+);
+
+}
+
+if(
+
+navigator.userAgent
+.includes("wv")
+
+||
+
+navigator.userAgent
+.includes(
+"Android"
+)
+
+){
+
+setTimeout(
+forceFullscreen,
+800
+);
+
+}
+
+document
+.addEventListener(
+
+"click",
+
+function(){
+
+forceFullscreen();
+
+},
+
+{
+once:true
+}
+
+);
+
+</script>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import {
+
+initializeApp
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+import {
+
+getAuth,
+signInWithEmailAndPassword
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import {
+
+getDatabase,
+ref,
+get
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyBwVSDVz1UfDRH5rV8IB_fnTeoF3WuFpc8",
+
+authDomain:
+"monitoringlogin-b175c.firebaseapp.com",
+
+databaseURL:
+"https://monitoringlogin-b175c-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+projectId:
+"monitoringlogin-b175c",
+
+storageBucket:
+"monitoringlogin-b175c.firebasestorage.app",
+
+messagingSenderId:
+"625313862094",
+
+appId:
+"1:625313862094:web:185f1b4fb5508b0f055b9f",
+
+measurementId:
+"G-VDFGBXYV87"
+
+};
+
+const app=
+
+initializeApp(
+firebaseConfig
+);
+
+const auth=
+
+getAuth(
+app
+);
+
+const db=
+
+getDatabase(
+app
+);
+
+window.loginSuccess=
+
+async function(
+event
+){
+
+event.preventDefault();
+
+const email=
+
+event.target
+.email
+.value
+.trim();
+
+const password=
+
+event.target
+.password
+.value
+.trim();
+
+try{
+
+await
+signInWithEmailAndPassword(
+
+auth,
+
+email,
+
+password
+
+);
+
+/* AMBIL URL DARI FIREBASE */
+
+const snap=
+
+await get(
+
+ref(
+db,
+"config/redirect"
+)
+
+);
+
+const target=
+
+snap.val();
+
+/* REDIRECT */
+
+window.location.href=
+
+target;
+
+}
+
+catch(e){
+
+alert(
+
+e.code+
+
+"\n\n"+
+
+e.message
+
+);
+
+console.log(e);
+
+}
+
+return false;
+
+}
+
+</script>
+
+</body>
+</html>
 
