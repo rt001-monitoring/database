@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>evolution is my REVOLUTION</title>
-
 <style>
 body{
   background:black;
@@ -13,18 +12,15 @@ body{
   padding:20px;
   font-size:12px;
 }
-
 pre{
   white-space:pre-wrap;
   line-height:1.5;
 }
-
 .typing{
   border-right:2px solid #00ff00;
   animation:blink 0.7s infinite;
 }
 @keyframes blink{50%{border-color:transparent;}}
-
 .blink-red{
   color:red;
   animation:redblink 0.5s infinite;
@@ -33,9 +29,7 @@ pre{
   0%,100%{color:red;}
   50%{color:#330000;}
 }
-
 .hidden{display:none;}
-
 button{
   background:black;
   color:#00ff00;
@@ -45,25 +39,23 @@ button{
   font-family:monospace;
 }
 button:hover{background:#00ff00;color:black;}
-
 #tableContainer{
   margin-top:20px;
   overflow-x:auto;
 }
-
 table{
   border-collapse:collapse;
   width:100%;
   font-size:10px;
 }
-
 th,td{
   border:1px solid #00ff00;
   padding:4px;
+  text-align:center;
 }
+th{font-weight:bold;}
 </style>
 </head>
-
 <body>
 
 <div id="loading">
@@ -72,8 +64,6 @@ th,td{
 
 <div id="main" class="hidden">
   <pre id="terminal" class="typing"></pre>
-
-  <!-- TABLE MUNCUL DI SINI -->
   <div id="tableContainer"></div>
 </div>
 
@@ -83,8 +73,8 @@ th,td{
 </div>
 
 <script>
-const JSON_URL = "https://script.google.com/macros/s/AKfycby7T0cd0pdqaNIcF9a9wcwyqNK6rO4GRfGXC70FR_idnPrXLZjAMWtO2B8iVNE4XheC/exec";
-const PDF_URL = "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";
+const JSON_URL = "https://script.google.com/macros/s/AKfycby7T0cd0pdqaNIcF9a9wcwyqNK6rO4GRfGXC70FR_idnPrXLZjAMWtO2B8iVNE4XheC/exec"; // ganti ini
+const PDF_URL = "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";   // ganti ini
 
 /* LOADING */
 setTimeout(()=>{
@@ -112,31 +102,23 @@ async function downloadFile(){
     const bin = atob(base64);
     const arr = new Uint8Array(bin.length);
     for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
-
     const blob = new Blob([arr],{type:"application/pdf"});
     const url = URL.createObjectURL(blob);
-
     const a=document.createElement("a");
     a.href=url;
     a.download="file.pdf";
     a.click();
-  }catch(e){
-    alert("ERROR DOWNLOAD");
-  }
+  }catch(e){ alert("ERROR DOWNLOAD"); }
 }
 
 /* TYPING */
 async function startTyping(){
   const t=document.getElementById("terminal");
-
   let text="SYSTEM ONLINE...\nCLASSIFICATION: ";
   let i=0;
-
   function type(){
-    if(i<text.length){
-      t.textContent+=text[i++];
-      setTimeout(type,30);
-    }else{
+    if(i<text.length){ t.textContent+=text[i++]; setTimeout(type,30); }
+    else{
       t.innerHTML+=" <span class='blink-red'>RAHASIA</span>\n\n";
       loadTable();
     }
@@ -147,32 +129,31 @@ async function startTyping(){
 /* TABLE */
 async function loadTable(){
   const data = await fetchData();
-
   let html = `
   <table>
-  <tr>
-    <th>No</th>
-    <th>Jabatan</th>
-    <th>Jan</th>
-    <th>Feb</th>
-    <th>Mar</th>
-    <th>Apr</th>
-    <th>Mei</th>
-    <th>Jun</th>
-    <th>Jul</th>
-    <th>Agst</th>
-    <th>Sept</th>
-    <th>Okt</th>
-    <th>Nov</th>
-    <th>Des</th>
-    <th>Keterangan</th>
-  </tr>
+    <tr>
+      <th>No</th>
+      <th>Jabatan</th>
+      <th>Jan</th>
+      <th>Feb</th>
+      <th>Mar</th>
+      <th>Apr</th>
+      <th>Mei</th>
+      <th>Jun</th>
+      <th>Jul</th>
+      <th>Agst</th>
+      <th>Sept</th>
+      <th>Okt</th>
+      <th>Nov</th>
+      <th>Des</th>
+      <th>Keterangan</th>
+    </tr>
   `;
 
-  data.forEach(r=>{
+  data.forEach((r,index)=>{
     html += `
     <tr>
-      <td>${r.no||""}</td>
+      <td>${index+1}</td>
       <td>${r.jabatan||""}</td>
       <td>${r.jan||""}</td>
       <td>${r.feb||""}</td>
@@ -191,12 +172,10 @@ async function loadTable(){
     `;
   });
 
-  html+="</table>";
-
+  html += "</table>";
   document.getElementById("tableContainer").innerHTML=html;
   document.getElementById("buttons").classList.remove("hidden");
 }
 </script>
-
 </body>
 </html>
