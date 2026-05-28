@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>evolution is my revolution</title>
+
+<style>
+body {
+  background-color: black;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+  padding: 20px;
+  font-size: 12px;
+  text-align: left;
+}
+
+pre { 
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
+  letter-spacing: 1px; 
+  line-height: 1.5; 
+}
+
+.typing {
+  border-right: 2px solid #00ff00;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor { 
+  50% { border-color: transparent; } 
+}
+
+/* ============================
+   KEDIP BARIS < 2 BULAN
+   ============================ */
+.baris-kedip-hijau {
+  animation: kedipHijauBaris 0.6s infinite;
+}
+
+@keyframes kedipHijauBaris {
+  0%   { background-color: rgba(0,255,0,0.1); }
+  50%  { background-color: rgba(0,80,0,0.3); }
+  100% { background-color: rgba(0,255,0,0.1); }
+}
+
+/* ============================
+   KEDIP BARIS ≥ 2 TAHUN
+   ============================ */
+.baris-kedip-merah {
+  animation: kedipMerahBaris 0.6s infinite;
+}
+
+@keyframes kedipMerahBaris {
+  0%   { background-color: rgba(255,0,0,0.1); }
+  50%  { background-color: rgba(80,0,0,0.3); }
+  100% { background-color: rgba(255,0,0,0.1); }
+}
+
+/* KEDIP TEKS */
+.blink-hijau {
+  color: #00ff00;
+  animation: kedipHijau 0.5s infinite;
+}
+
+@keyframes kedipHijau {
+  0%   { color: #00ff00; }
+  50%  { color: #003300; }
+  100% { color: #00ff00; }
+}
+
+.blink-merah {
+  color: #ff0000;
+  animation: kedipMerah 0.5s infinite;
+}
+
+@keyframes kedipMerah {
+  0%   { color: #ff0000; }
+  50%  { color: #330000; }
+  100% { color: #ff0000; }
+}
+
+/* PNS warna kuning */
+.yellow { 
+  color: #ffff00; 
+  font-weight: bold; 
+}
+
+.hidden { display: none; }
+
+/* Tombol */
+.button-container {
+  text-align: center;
+  margin-top: 25px;
+}
+
+button {
+  background-color: black;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  font-family: "Courier New", monospace;
+  padding: 8px 20px;
+  font-size: 12px;
+  margin: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #00ff00;
+  color: black;
+  font-weight: bold;
+}
+
+button.download-btn {
+  color: #ff0000;
+  border-color: #ff0000;
+  animation: blinkRedBtn 0.5s infinite;
+}
+
+@keyframes blinkRedBtn {
+  0% { color: #ff0000; }
+  50% { color: #330000; }
+  100% { color: #ff0000; }
+}
+
+button.download-btn:hover {
+  background-color: #ff0000;
+  color: black;
+  animation: none;
+}
+
+/* Running text */
+#runningText {
+  color: #00ff00;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#runningText span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: runText 15s linear infinite;
+}
+
+@keyframes runText {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* RESPONSIVE SUPER KECIL — biar semua baris masuk 1 line */
+@media (max-width: 1100px) {
+  pre {
+    transform: scale(0.65);
+    transform-origin: top left;
+  }
+}
+
+@media (max-width: 800px) {
+  pre {
+    transform: scale(0.45);
+    transform-origin: top left;
+  }
+}
+
+@media (max-width: 600px) {
+  pre {
+    transform: scale(0.35);
+    transform-origin: top left;
+  }
+}
+
+@media (max-width: 450px) {
+  pre {
+    transform: scale(0.30);
+    transform-origin: top left;
+  }
+}
+/* ==== RESPONSIVE SATU BARIS TANPA GANGGU CSS LAIN ==== */
+
+.row-flex-fix {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.row-flex-fix > div {
+    flex: 0 0 auto;
+    font-size: 10px;
+    padding: 2px 4px;
+}
+
+/* Kolom minimal agar muat di tablet */
+.row-flex-fix .col-nama { min-width: 60px; }
+.row-flex-fix .col-pangkat { min-width: 45px; }
+.row-flex-fix .col-jabatan { min-width: 90px; }
+.row-flex-fix .col-tmt { min-width: 70px; }
+.row-flex-fix .col-ket { min-width: 160px; }
+
+  /* FIX: AGAR SEMUA BARIS TETAP 1 LINE DI TABLET / HP */
+pre {
+    white-space: pre !important;
+    overflow-x: auto !important;
+}
+
+/* AGAR PRE SELALU FULL LAYAR & TIDAK PERLU SCROLL */
+pre {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    display: block;
+    letter-spacing: 1px;
+}
+
+/* KECILKAN TEKS DI DALAM PRE SUPAYA MUAT 1 LAYAR */
+#terminal {
+    font-size: 10px !important;
+}
+
+/* KHUSUS TABLET */
+@media (max-width: 1100px) {
+  #terminal {
+    font-size: 8px !important;
+  }
+}
+
+/* HP LEBAR SEDANG */
+@media (max-width: 800px) {
+  #terminal {
+    font-size: 7px !important;
+  }
+}
+
+/* HP KECIL */
+@media (max-width: 600px) {
+  #terminal {
+    font-size: 6px !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Bagian Loading -->
+<div id="loading">
+  <p>>> initializing connection...</p>
+  <p class="hidden">>>> accessing database node...</p>
+  <p class="hidden">>>> verifying security clearance...</p>
+  <p class="hidden">>>> clearance level verified ✓</p>
+  <p class="hidden">>>> retrieving list of incoming personnel...</p>
+</div>
+
+<!-- Bagian Utama -->
+<div id="main" class="hidden">
+  <div id="runningText">
+    <span>⚠ THIS DATA IS CONFIDENTIAL - FOR THE KODIKLATAU CENTER ENVIRONMENT ONLY ⚠ </span>
+  </div>
+  <pre id="terminal" class="typing"></pre>
+</div>
+
+<!-- Tombol -->
+<div class="button-container hidden" id="buttons">
+  <button onclick="window.location.href='personelmasuk.html'">personel MASUK</button>
+  <button onclick="window.location.href='personelkeluar.html'">personel KELUAR</button>
+  <button onclick="window.location.href='database.html'">back to DATABASE</button>
+  <button class="download-btn" onclick="downloadFile()">DOWNLOAD</button>
+</div>
+
+<script>
+/* ================== LOADING ================== */
+const lines = document.querySelectorAll("#loading p");
+let delay = 800;
+
+lines.forEach((line, index) => {
+  setTimeout(() => {
+    line.classList.remove("hidden");
+    if (index === lines.length - 1) {
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("main").classList.remove("hidden");
+        startTyping();
+      }, 1000);
+    }
+  }, delay * (index + 1));
+});
+
+
+/* ================== HITUNG MASA DINAS ================== */
+function hitungMasa(tmt) {
+  if (!tmt || !tmt.includes("/")) return "-";
+
+  const p = tmt.split("/");
+  const start = new Date(p[2], p[1] - 1, p[0]);
+  const today = new Date();
+
+  let y = today.getFullYear() - start.getFullYear();
+  let m = today.getMonth() - start.getMonth();
+  let d = today.getDate() - start.getDate();
+
+  if (d < 0) {
+    m--;
+    d += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  }
+  if (m < 0) {
+    y--;
+    m += 12;
+  }
+
+  return `${y} th ${m} bln ${d} hr`;
+}
+
+
+/* ================== FETCH DATA ================== */
+async function fetchData() {
+  const url =
+    "https://script.google.com/macros/s/AKfycbzfbLo3gcwiVy68LtXARHCZcaxrkaTKPSxu0FX6hZvIxt52-jjyVj80yi2yEOPiTRjk/exec";
+
+  const res = await fetch(url);
+  return res.json();
+}
+
+
+/* ================== EFEK KETIK ================== */
+async function startTyping() {
+
+  const terminal = document.getElementById("terminal");
+
+  const textBefore = `
+====================================
+| FILE: PERSONEL PUSLAT KODIKLATAU |
+| CLASSIFICATION: `;
+
+  const textAfterTop = `
+====================================
+`;
+
+  const rahasia = "RAHASIA";
+
+  const tableHeader = `
+---------------------------------------------------------------------------------------------------------------
+`;
+
+  const footer = `
+---------------------------------------------------------------------------------------------------------------
+* Center personnel data is automatically updated from Spreadsheet
+* Information is only for the PUSLAT KODIKLATAU environment.
+---------------------------------------------------------------------------------------------------------------
+`;
+
+  let i = 0, step = 0;
+  let spanRahasia;
+
+  function type() {
+
+    if (step === 0) {
+      if (i < textBefore.length) {
+        terminal.textContent += textBefore.charAt(i++);
+        return setTimeout(type, 1);
+      }
+      step = 1;
+      i = 0;
+      spanRahasia = document.createElement("span");
+      spanRahasia.classList.add("blink-merah");
+      terminal.appendChild(spanRahasia);
+      return type();
+    }
+
+    if (step === 1) {
+      if (i < rahasia.length) {
+        spanRahasia.textContent += rahasia.charAt(i++);
+        return setTimeout(type, 30);
+      }
+      step = 2;
+      i = 0;
+      return type();
+    }
+
+    if (step === 2) {
+      if (i < textAfterTop.length) {
+        terminal.innerHTML += textAfterTop.charAt(i++);
+        return setTimeout(type, 1);
+      }
+      step = 3;
+      terminal.innerHTML += tableHeader;
+      return type();
+    }
+  }
+
+  type();
+
+  /* tampilkan data */
+  setTimeout(async () => {
+    const data = await fetchData();
+
+    data.forEach(row => {
+      const masa = hitungMasa(row.tmt);
+
+      let masaFix = masa;
+      const angka = masa.match(/\d+/g);
+      const tahun = angka ? parseInt(angka[0]) : 0;
+      const bulan = angka ? parseInt(angka[1]) : 0;
+
+      let wrapStart = "";
+      let wrapEnd = "";
+
+      if (tahun === 0 && bulan < 2) {
+        wrapStart = `<span class="baris-kedip-hijau">`;
+        wrapEnd = `</span>`;
+        masaFix = `<span class="blink-hijau">${masa}</span>`;
+      }
+      else if (tahun >= 2) {
+        wrapStart = `<span class="baris-kedip-merah">`;
+        wrapEnd = `</span>`;
+        masaFix = `<span class="blink-merah">${masa}</span>`;
+      }
+
+      let line =
+`${row.no.toString().padEnd(5)}${row.nama.padEnd(35)}${row.pangkat.padEnd(20)}${row.jabatan.padEnd(42)}${row.tmt.padEnd(20)}${row.keterangan.padEnd(15)}${masaFix}\n`;
+
+      if (String(row.pangkat).toUpperCase().includes("PNS")) {
+        line = `<span class="yellow">${line}</span>`;
+      }
+
+      terminal.innerHTML += wrapStart + line + wrapEnd;
+    });
+
+    terminal.innerHTML += footer;
+    terminal.classList.remove("typing");
+    document.getElementById("buttons").classList.remove("hidden");
+
+  }, 2500);
+}
+
+
+/* ================== DOWNLOAD ================== */
+function downloadFile() {
+  window.open(
+    "https://drive.google.com/uc?export=download&id=1GAPWqs98GSMypnKYeow_oWzSYtAgzK6h",
+    "_blank"
+  );
+}
+
+
+/* ================== TAMPILKAN ANGGOTA MASUK < 2 BULAN ================== */
+async function tampilAnggotaMasuk() {
+
+  const terminal = document.getElementById("terminal");
+  terminal.innerHTML = "";
+
+  const data = await fetchData();
+
+  const hasil = data.filter(row => {
+    const masa = hitungMasa(row.tmt);
+    const angka = masa.match(/\d+/g);
+
+    if (!angka) return false;
+
+    const tahun = parseInt(angka[0]);
+    const bulan = parseInt(angka[1]);
+
+    return tahun === 0 && bulan < 2;
+  });
+
+  terminal.innerHTML += `
+===============================================
+| LIST ANGGOTA MASUK (Masa < 2 Bulan)         |
+===============================================
+
+NO    NAMA                          PANGKAT                 JABATAN                 TMT           MASA DINAS
+---------------------------------------------------------------------------------------------------------------
+`;
+
+  hasil.forEach(row => {
+    const masa = hitungMasa(row.tmt);
+
+    let masaFix = masa;
+    const angka = masa.match(/\d+/g);
+    const tahun = parseInt(angka[0]);
+    const bulan = parseInt(angka[1]);
+
+    let wrapStart = "";
+    let wrapEnd = "";
+
+    if (tahun === 0 && bulan < 2) {
+      wrapStart = `<span class="baris-kedip-hijau">`;
+      wrapEnd = `</span>`;
+      masaFix = `<span class="blink-hijau">${masa}</span>`;
+    }
+    else if (tahun >= 2) {
+      wrapStart = `<span class="baris-kedip-merah">`;
+      wrapEnd = `</span>`;
+      masaFix = `<span class="blink-merah">${masa}</span>`;
+    }
+
+    let line =
+`${row.no.toString().padEnd(5)}${row.nama.padEnd(35)}${row.pangkat.padEnd(20)}${row.jabatan.padEnd(42)}${row.tmt.padEnd(20)}${row.keterangan.padEnd(15)}${masaFix}\n`;
+
+    if (String(row.pangkat).toUpperCase().includes("PNS")) {
+      line = `<span class="yellow">${line}</span>`;
+    }
+
+    terminal.innerHTML += wrapStart + line + wrapEnd;
+  });
+
+  terminal.innerHTML += `
+---------------------------------------------------------------------------------------------------------------
+TOTAL ANGGOTA MASUK: ${hasil.length}
+---------------------------------------------------------------------------------------------------------------
+`;
+}
+
+function perbaikiTMT() {
+  const sheet = SpreadsheetApp.getActiveSheet();
+  const range = sheet.getRange("E11:E88");
+  const values = range.getValues();
+
+  const output = values.map(r => {
+    let v = r[0];
+
+    if (!v) return [""];
+
+    // Jika format ISO 2023-11-12T08:00:00.000Z
+    if (typeof v === "string" && v.includes("T")) {
+      const tgl = v.substring(0, 10); // ambil yyyy-mm-dd
+      const p = tgl.split("-");
+      return [new Date(p[0], p[1] - 1, p[2])];
+    }
+
+    // Jika sudah tanggal
+    return [new Date(v)];
+  });
+
+  range.setValues(output);
+  range.setNumberFormat("dd/mm/yyyy");
+}
+
+</script>
+<script>
+// Fullscreen untuk Android WebView / PWA
+function forceFullscreen() {
+  const elem = document.documentElement;
+
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(()=>{});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+
+// Deteksi jika dijalankan sebagai PWA atau WebView
+function isStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches || 
+          window.navigator.standalone === true);
+}
+
+// Jika PWA → langsung fullscreen
+if (isStandalone()) {
+  setTimeout(forceFullscreen, 500);
+}
+
+// Jika Android WebView → auto fullscreen
+if (navigator.userAgent.includes("wv") || navigator.userAgent.includes("Android")) {
+  setTimeout(forceFullscreen, 800);
+}
+
+// Browser biasa tetap butuh klik pertama
+document.addEventListener("click", function() {
+  forceFullscreen();
+}, { once: true });
+</script>
+
+</body>
+</html>
