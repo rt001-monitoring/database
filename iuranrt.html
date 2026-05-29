@@ -136,7 +136,6 @@ button:hover{
   pre{
     font-size:10px;
   }
-
 }
 
 @media(max-width:600px){
@@ -144,7 +143,28 @@ button:hover{
   pre{
     font-size:8px;
   }
+}
+table{
+  border-collapse:collapse;
+  width:max-content;
+  min-width:100%;
+  color:#00ff00;
+  font-size:12px;
+}
 
+th,td{
+  border:1px solid #00ff00;
+  padding:6px 10px;
+  text-align:center;
+  white-space:nowrap;
+}
+
+th{
+  background:#001100;
+}
+
+td.nama{
+  text-align:left;
 }
 
 </style>
@@ -185,7 +205,7 @@ DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001
 </div>
 
 <div id="terminalBox">
-<pre id="terminal" class="typing"></pre>
+<div id="terminal" class="typing"></div>
 </div>
 
 </div>
@@ -391,39 +411,69 @@ CLASSIFICATION : `;
 async function tampilkanData(){
 
   const terminal =
-  document.getElementById("terminal");  
+  document.getElementById("terminal");
 
   try{
 
     const data = await fetchData();
 
+    let html = `
+    <table>
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>NAMA</th>
+          <th>JAN</th>
+          <th>FEB</th>
+          <th>MART</th>
+          <th>APRL</th>
+          <th>MEI</th>
+          <th>JUN</th>
+          <th>JUL</th>
+          <th>AGST</th>
+          <th>SEPT</th>
+          <th>OKT</th>
+          <th>NOV</th>
+          <th>DES</th>
+        </tr>
+      </thead>
+      <tbody>
+    `;
+
     data.forEach(row=>{
 
-      let line =
-`${fix(row.no,5)}${fix(row.nama,29)}${fix(row.jan,8)}${fix(row.feb,8)}${fix(row.mart,8)}${fix(row.aprl,8)}${fix(row.mei,8)}${fix(row.jun,8)}${fix(row.jul,8)}${fix(row.agst,8)}${fix(row.sept,8)}${fix(row.okt,8)}${fix(row.nov,8)}${fix(row.des,8)}\n`;
-
-      terminal.innerHTML += line;
+      html += `
+      <tr>
+        <td>${row.no || ""}</td>
+        <td class="nama">${row.nama || ""}</td>
+        <td>${row.jan || ""}</td>
+        <td>${row.feb || ""}</td>
+        <td>${row.mart || ""}</td>
+        <td>${row.aprl || ""}</td>
+        <td>${row.mei || ""}</td>
+        <td>${row.jun || ""}</td>
+        <td>${row.jul || ""}</td>
+        <td>${row.agst || ""}</td>
+        <td>${row.sept || ""}</td>
+        <td>${row.okt || ""}</td>
+        <td>${row.nov || ""}</td>
+        <td>${row.des || ""}</td>
+      </tr>
+      `;
 
     });
 
-    terminal.innerHTML +=
-`
-----------------------------------------------------------------------------------------------------------
-* Data diperbarui otomatis dari Spreadsheet.
-* Informasi hanya untuk lingkungan RT 001 RW 001.
-----------------------------------------------------------------------------------------------------------
-`;
+    html += `
+      </tbody>
+    </table>
+    `;
+
+    terminal.innerHTML = html;
 
   }catch(err){
 
-    terminal.innerHTML +=
-`
-
-SYSTEM ERROR
-
-${err}
-
-`;
+    terminal.innerHTML =
+    `<span style="color:red">SYSTEM ERROR</span>`;
 
   }
 
