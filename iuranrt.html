@@ -372,33 +372,7 @@ async function tampilkanData() {
     terminal.innerHTML = err;
 
   }
-}
-
-    terminal.innerHTML += `
---------------------------------------------------------------------------------------------------------------
-* Data jabatan kosong diperbarui otomatis dari Spreadsheet.
-* Informasi hanya untuk lingkungan PUSLAT KODIKLATAU.
---------------------------------------------------------------------------------------------------------------
-`;
-
-  } catch(err) {
-
-    terminal.innerHTML += `
-
-[ SYSTEM ERROR ]
-
-${err}
-
-`;
-
-    console.error(err);
-  }
-
-  terminal.classList.remove("typing");
-
-  document.getElementById("buttons")
-    .classList.remove("hidden");
-}
+}    
 
 </script>
 <script>
