@@ -166,6 +166,19 @@ th{
 td.nama{
   text-align:left;
 }
+.title-main{
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.title-sub{
+  text-align:center;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
 .info-text{
   font-size:10px;
   line-height:1.6;
@@ -423,16 +436,19 @@ async function tampilkanData(){
 
     // ambil info atas
     const info = `
-      <div class="info-text">
-        <div>IURAN BULANAN WARGA RT 001</div>
-        <div>DURI KOSAMBI TH 2026</div>
-        <br>
-        <div>RT/RW     :  001/004</div>
-        <div>KEL/DES   :  PETIR</div>
-        <div>KECAMATAN :  CIPONDOH</div>
-        <div>PROVINSI  :  BANTEN</div>
-      </div>
-    `;
+  <div class="title-main">
+    IURAN BULANAN WARGA RT 001
+  </div>
+
+  <div class="title-sub">
+    DURI KOSAMBI TH 2026
+  </div>
+
+  <div class="info-text">
+    <div>PROVINSI : BANTEN</div>
+    <div>KECAMATAN : CIPONDOH</div>
+  </div>
+`;
 
     // mulai tabel
     let html = `
