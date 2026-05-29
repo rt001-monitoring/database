@@ -127,6 +127,18 @@ pre {
 @media (max-width: 1100px) { #terminal { font-size: 8px !important; } }
 @media (max-width: 800px)  { #terminal { font-size: 7px !important; } }
 @media (max-width: 600px)  { #terminal { font-size: 6px !important; } }
+#terminal table{
+  border-collapse: collapse;
+  width: 100%;
+  color:#00ff00;
+}
+
+#terminal td,
+#terminal th{
+  border:1px solid #00ff00;
+  padding:6px;
+  font-size:12px;
+}
 </style>
 </head>
 
@@ -146,7 +158,7 @@ pre {
   <div id="runningText">
     <span>DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001 </span>
   </div>
-  <pre id="terminal" class="typing"></pre>
+  <div id="terminal" class="typing"></div>
 </div>
 
 <!-- TOMBOL -->
@@ -306,44 +318,61 @@ async function tampilkanData() {
   try {
 
     const data = await fetchData();
-    if (!Array.isArray(data)) {
-      terminal.innerHTML += `
 
-[ DATABASE ERROR ]
-INVALID JSON RESPONSE
-
-`;
-
-      return;
-    }
+    let html = `
+      <table>
+        <tr>
+          <th>NO</th>
+          <th>NAMA</th>
+          <th>JAN</th>
+          <th>FEB</th>
+          <th>MAR</th>
+          <th>APR</th>
+          <th>MEI</th>
+          <th>JUN</th>
+          <th>JUL</th>
+          <th>AGST</th>
+          <th>SEPT</th>
+          <th>OKT</th>
+          <th>NOV</th>
+          <th>DES</th>
+          <th>KETERANGAN</th>
+        </tr>
+    `;
 
     data.forEach(row => {
 
-      let line =
-`${String(row.no || "").padEnd(5)}${String(row.nama || "").padEnd(32)}${String(row.jan || "").padEnd(10)}${String(row.feb || "").padEnd(10)}${String(row.mart || "").padEnd(10)}${String(row.aprl || "").padEnd(10)}${String(row.mei || "").padEnd(10)}${String(row.jun || "").padEnd(10)}${String(row.jul || "").padEnd(10)}${String(row.agst || "").padEnd(10)}${String(row.sept || "").padEnd(10)}${String(row.okt || "").padEnd(10)}${String(row.nov || "").padEnd(10)}${String(row.des || "").padEnd(10)}${String(row.keterangan || "")}\n`;
-
-      if (
-        String(row.pangkat || "")
-        .toUpperCase()
-        .includes("PNS")
-      ) {
-        line = `<span class="yellow">${line}</span>`;
-      }
-
-      const keterangan =
-        String(row.keterangan || "")
-        .toUpperCase();
-
-      if (keterangan.includes("PRIORITAS")) {
-
-        terminal.innerHTML +=
-          `<span class="blink-prioritas">${line}</span>`;
-
-      } else {
-
-        terminal.innerHTML += line;
-      }
+      html += `
+        <tr>
+          <td>${row.no || ""}</td>
+          <td>${row.nama || ""}</td>
+          <td>${row.jan || ""}</td>
+          <td>${row.feb || ""}</td>
+          <td>${row.mart || ""}</td>
+          <td>${row.aprl || ""}</td>
+          <td>${row.mei || ""}</td>
+          <td>${row.jun || ""}</td>
+          <td>${row.jul || ""}</td>
+          <td>${row.agst || ""}</td>
+          <td>${row.sept || ""}</td>
+          <td>${row.okt || ""}</td>
+          <td>${row.nov || ""}</td>
+          <td>${row.des || ""}</td>
+          <td>${row.keterangan || ""}</td>
+        </tr>
+      `;
     });
+
+    html += `</table>`;
+
+    terminal.innerHTML = html;
+
+  } catch(err) {
+
+    terminal.innerHTML = err;
+
+  }
+}
 
     terminal.innerHTML += `
 --------------------------------------------------------------------------------------------------------------
