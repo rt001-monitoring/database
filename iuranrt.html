@@ -363,16 +363,34 @@ async function tampilkanData() {
       `;
     });
 
-    html += `</table>`;
+    html += `
+      </table>
+
+      <br><br>
+
+      <div>
+      * Data diperbarui otomatis dari Spreadsheet.<br>
+      * Informasi hanya untuk lingkungan RT 001 RW 001.
+      </div>
+    `;
 
     terminal.innerHTML = html;
 
   } catch(err) {
 
-    terminal.innerHTML = err;
+    terminal.innerHTML = `
+      [ SYSTEM ERROR ]<br><br>
+      ${err}
+    `;
 
+    console.error(err);
   }
-}    
+
+  terminal.classList.remove("typing");
+
+  document.getElementById("buttons")
+    .classList.remove("hidden");
+}   
 
 </script>
 <script>
