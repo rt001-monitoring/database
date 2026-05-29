@@ -417,6 +417,18 @@ async function tampilkanData(){
 
     const data = await fetchData();
 
+    // ambil info atas
+    const info = `
+      <div style="margin-bottom:15px;line-height:1.8">
+        <div>IURAN BULANAN WARGA RT 001</div>
+        <div>DURI KOSAMBI TH 2026</div>
+        <br>
+        <div>PROVINSI : BANTEN</div>
+        <div>KECAMATAN : CIPONDOH</div>
+      </div>
+    `;
+
+    // mulai tabel
     let html = `
     <table>
       <thead>
@@ -440,7 +452,10 @@ async function tampilkanData(){
       <tbody>
     `;
 
-    data.forEach(row=>{
+    // filter data yg punya nomor
+    const warga = data.filter(row => row.no);
+
+    warga.forEach(row=>{
 
       html += `
       <tr>
@@ -468,7 +483,7 @@ async function tampilkanData(){
     </table>
     `;
 
-    terminal.innerHTML = html;
+    terminal.innerHTML = info + html;
 
   }catch(err){
 
