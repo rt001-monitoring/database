@@ -6,127 +6,169 @@
 <title>evolution is my REVOLUTION</title>
 
 <style>
-body {
-  background-color: black;
-  color: #00ff00;
-  font-family: "Courier New", monospace;
-  padding: 20px;
-  font-size: 12px;
-  text-align: left;
-  overflow-x: hidden;
+body{
+  background:black;
+  color:#00ff00;
+  font-family:"Courier New", monospace;
+  padding:20px;
+  font-size:12px;
+  overflow:hidden;
 }
 
-pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  letter-spacing: 1px;
-  line-height: 1.5;
-  transform: scale(0.9);
-  transform-origin: top left;
+#loading{
+  white-space:pre-wrap;
 }
 
-/* Cursor blinking */
-.typing {
-  border-right: 2px solid #00ff00;
-  animation: blinkCursor 0.7s infinite;
+.hidden{
+  display:none;
 }
-@keyframes blinkCursor { 50% { border-color: transparent; } }
+
+/* TERMINAL */
+#terminal-wrapper{
+  width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid #00ff00;
+  padding:10px;
+  background:#000;
+}
+
+pre{
+  margin:0;
+  white-space:pre;
+  line-height:1.4;
+  font-family:"Courier New", monospace;
+  font-size:12px;
+  letter-spacing:0;
+  width:max-content;
+  min-width:100%;
+}
+
+/* Cursor */
+.typing{
+  border-right:2px solid #00ff00;
+  animation:blinkCursor .7s infinite;
+}
+
+@keyframes blinkCursor{
+  50%{
+    border-color:transparent;
+  }
+}
 
 /* Blink merah */
-.blink-red {
-  color: #ff0000;
-  animation: blinkRed 0.45s infinite;
-}
-@keyframes blinkRed {
-  0%, 100% { color: #ff0000; }
-  50% { color: #330000; }
+.blink-red{
+  color:#ff0000;
+  animation:blinkRed .5s infinite;
 }
 
-/* PRIORITAS — teks kuning berkedip (menonjol) */
-.blink-X {
-  color: #ffff00;
-  font-weight: bold;
-  animation: blinkX 0.6s infinite;
-}
-@keyframes blinkX {
-  0%   { color: #ffff00; text-shadow: 0 0 6px #ffff00; }
-  50%  { color: #333300; text-shadow: none; }
-  100% { color: #ffff00; text-shadow: 0 0 6px #ffff00; }
-}
-
-/* PNS kuning (tanpa animasi) */
-.yellow {
-  color: #00ff00;
-  font-weight: bold;
+@keyframes blinkRed{
+  0%,100%{
+    color:#ff0000;
+    text-shadow:0 0 5px #ff0000;
+  }
+  50%{
+    color:#330000;
+    text-shadow:none;
+  }
 }
 
-.hidden { display: none; }
-
-/* Tombol bawah */
-.button-container {
-  text-align: center;
-  margin-top: 20px;
-}
-button {
-  background-color: black;
-  color: #00ff00;
-  border: 1px solid #00ff00;
-  padding: 8px 20px;
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: 8px;
-  margin: 0 10px;
-  transition: 0.3s;
-  font-family: "Courier New", monospace;
-}
-button:hover {
-  background-color: #00ff00;
-  color: black;
+/* PRIORITAS */
+.blink-X{
+  color:#ffff00;
+  font-weight:bold;
+  animation:blinkX .6s infinite;
 }
 
-/* Tombol download merah */
-button.download-btn {
-  color: #ff0000;
-  border-color: #ff0000;
-  animation: blinkRed 0.5s infinite;
-}
-button.download-btn:hover {
-  background-color: #ff0000;
-  color: black;
-  animation: none;
-}
-
-/* Running text */
-#runningText {
-  color: #00ff00;
-  white-space: nowrap;
-  overflow: hidden;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-#runningText span {
-  display: inline-block;
-  padding-left: 100%;
-  animation: runText 15s linear infinite;
-}
-@keyframes runText {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+@keyframes blinkX{
+  0%,100%{
+    color:#ffff00;
+    text-shadow:0 0 6px #ffff00;
+  }
+  50%{
+    color:#333300;
+    text-shadow:none;
+  }
 }
 
-/* RESPONSIVE SUPAYA MUAT 1 BARIS */
-pre {
-  white-space: pre !important;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden !important;
+/* running text */
+#runningText{
+  color:#00ff00;
+  white-space:nowrap;
+  overflow:hidden;
+  font-weight:bold;
+  margin-bottom:10px;
 }
 
-#terminal { font-size: 10px !important; }
+#runningText span{
+  display:inline-block;
+  padding-left:100%;
+  animation:runText 15s linear infinite;
+}
 
-@media (max-width: 1100px) { #terminal { font-size: 8px !important; } }
-@media (max-width: 800px)  { #terminal { font-size: 7px !important; } }
-@media (max-width: 600px)  { #terminal { font-size: 6px !important; } }
+@keyframes runText{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-100%);
+  }
+}
+
+/* BUTTON */
+.button-container{
+  text-align:center;
+  margin-top:20px;
+}
+
+button{
+  background:black;
+  color:#00ff00;
+  border:1px solid #00ff00;
+  padding:8px 20px;
+  font-size:12px;
+  cursor:pointer;
+  border-radius:8px;
+  margin:0 10px;
+  transition:.3s;
+  font-family:"Courier New", monospace;
+}
+
+button:hover{
+  background:#00ff00;
+  color:black;
+}
+
+.download-btn{
+  color:#ff0000;
+  border-color:#ff0000;
+  animation:blinkRed .5s infinite;
+}
+
+.download-btn:hover{
+  background:#ff0000;
+  color:black;
+  animation:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  pre{
+    font-size:10px;
+  }
+}
+
+@media(max-width:700px){
+  pre{
+    font-size:8px;
+  }
+}
+
+@media(max-width:500px){
+  pre{
+    font-size:7px;
+  }
+}
 </style>
 </head>
 
@@ -134,232 +176,269 @@ pre {
 
 <!-- LOADING -->
 <div id="loading">
-  <p>>> initializing connection...</p>
-  <p class="hidden">>>> accessing database node...</p>
-  <p class="hidden">>>> verifying security clearance...</p>
-  <p class="hidden">>>> clearance level verified ✓</p>
-  <p class="hidden">>>> retrieving iuran warga RT 001...</p>
+<p>>> initializing connection...</p>
+<p class="hidden">>>> accessing database node...</p>
+<p class="hidden">>>> verifying security clearance...</p>
+<p class="hidden">>>> clearance level verified ✓</p>
+<p class="hidden">>>> retrieving iuran warga RT 001...</p>
 </div>
 
 <!-- MAIN -->
 <div id="main" class="hidden">
-  <div id="runningText">
-    <span>DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001 </span>
-  </div>
-  <pre id="terminal" class="typing"></pre>
+
+<div id="runningText">
+<span>
+DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001
+</span>
 </div>
 
-<!-- TOMBOL -->
-<div class="button-container hidden" id="buttons">  
-  <button onclick="window.location.href='database.html'">back to DATABASE</button>
-  <button class="download-btn" onclick="downloadFile()">
-  ⬇ DOWNLOAD PDF
+<div id="terminal-wrapper">
+<pre id="terminal" class="typing"></pre>
+</div>
+
+</div>
+
+<!-- BUTTON -->
+<div class="button-container hidden" id="buttons">
+
+<button onclick="window.location.href='database.html'">
+back to DATABASE
 </button>
+
+<button class="download-btn" onclick="downloadFile()">
+⬇ DOWNLOAD PDF
+</button>
+
 </div>
 
 <script>
-/* ================== LOADING ================== */
+/* ================= LOADING ================= */
+
 const lines = document.querySelectorAll("#loading p");
+
 let delay = 800;
 
-lines.forEach((line, idx) => {
-  setTimeout(() => {
+lines.forEach((line, idx)=>{
+
+  setTimeout(()=>{
+
     line.classList.remove("hidden");
-    if (idx === lines.length - 1) {
-      setTimeout(() => {
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("main").classList.remove("hidden");
+
+    if(idx === lines.length - 1){
+
+      setTimeout(()=>{
+
+        document.getElementById("loading").style.display="none";
+
+        document.getElementById("main")
+        .classList.remove("hidden");
+
         startTyping();
-      }, 1000);
+
+      },1000);
     }
+
   }, delay * (idx + 1));
+
 });
 
-/* ================== FETCH DATA JABATAN KOSONG ================== */
-async function fetchData() {
-  try {
+/* ================= FETCH DATA ================= */
+
+async function fetchData(){
+
+  try{
+
     const url =
-      "https://script.google.com/macros/s/AKfycbxG2QC7-7XV85pCJA32jLscOaHa_UCoRSeAIlFmtKZ2OC_UVH9riEjxSLaNbcdzDwW4/exec";
+    "https://script.google.com/macros/s/AKfycbxG2QC7-7XV85pCJA32jLscOaHa_UCoRSeAIlFmtKZ2OC_UVH9riEjxSLaNbcdzDwW4/exec";
 
     const res = await fetch(url);
-    if (!res.ok) {
+
+    if(!res.ok){
       throw new Error("HTTP ERROR");
     }
-    const text = await res.text();
-    console.log(text);
-    return JSON.parse(text);
-  } catch(err) {
+
+    return await res.json();
+
+  }catch(err){
+
     console.error(err);
+
     return [];
   }
 }
 
-/* ================== DOWNLOAD PDF ================== */
-async function downloadFile() {
+/* ================= FIX WIDTH ================= */
 
-  try {
+function fix(text, len){
+
+  text = String(text || "");
+
+  if(text.length > len){
+    return text.substring(0, len - 1) + " ";
+  }
+
+  return text.padEnd(len, " ");
+}
+
+/* ================= DOWNLOAD PDF ================= */
+
+async function downloadFile(){
+
+  try{
 
     const url =
-      "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";
+    "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";
 
     const response = await fetch(url);
-if (!response.ok) {
-  throw new Error("HTTP ERROR");
-}
-const base64 = await response.text();
-const binary = atob(base64);
-const bytes = new Uint8Array(binary.length);
-for (let i = 0; i < binary.length; i++) {
-  bytes[i] = binary.charCodeAt(i);
-}
-const blob = new Blob([bytes], {
-  type: "application/pdf"
-});
-const blobUrl = URL.createObjectURL(blob);
-const link = document.createElement("a");
-link.href = blobUrl;
-link.download = "jabatan_kosong.pdf";
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-URL.revokeObjectURL(blobUrl);
-  } catch(err) {
+
+    if(!response.ok){
+      throw new Error("HTTP ERROR");
+    }
+
+    const base64 = await response.text();
+
+    const binary = atob(base64);
+
+    const bytes = new Uint8Array(binary.length);
+
+    for(let i=0;i<binary.length;i++){
+      bytes[i] = binary.charCodeAt(i);
+    }
+
+    const blob = new Blob([bytes], {
+      type:"application/pdf"
+    });
+
+    const blobUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = blobUrl;
+    link.download = "iuran_rt001.pdf";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(blobUrl);
+
+  }catch(err){
 
     alert("DOWNLOAD FAILED");
+
     console.error(err);
   }
 }
 
-/* ================== EFEK KETIK ================== */
-async function startTyping() {
+/* ================= EFEK KETIK ================= */
 
-  const terminal = document.getElementById("terminal");
+async function startTyping(){
 
-  const textBefore = `
----------------------------------
-FILE: IURAN WARGA RT OO1       
-CLASSIFICATION: `;
+  const terminal =
+  document.getElementById("terminal");
+
+  const header =
+`---------------------------------------------------------------------------------------------------------------
+FILE           : IURAN WARGA RT 001
+CLASSIFICATION : `;
 
   const rahasia = "RAHASIA";
 
-  const textAfterTop = `
----------------------------------
-`;
-  const tableHeader = `
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`;
+  terminal.textContent = header;
 
-  const footer = `
------------------------------------------------------------------------------------------------------------------------------------------------------------
-* Data jabatan kosong diperbarui otomatis dari Spreadsheet.
-* Informasi hanya untuk lingkungan RT 001 RW 001.
------------------------------------------------------------------------------------------------------------------------------------------------------------
-`;
+  const span = document.createElement("span");
 
-  let i = 0, step = 0;
-  let spanRahasia;
+  span.className = "blink-red";
 
-  function type() {
+  terminal.appendChild(span);
 
-    if (step === 0) {
-      if (i < textBefore.length) {
-        terminal.textContent += textBefore.charAt(i++);
-        return setTimeout(type, 1);
-      }
-      step = 1;
-      i = 0;
-      spanRahasia = document.createElement("span");
-      spanRahasia.classList.add("blink-red");
-      terminal.appendChild(spanRahasia);
-      return type();
-    }
+  let i = 0;
 
-    if (step === 1) {
-      if (i < rahasia.length) {
-        spanRahasia.textContent += rahasia.charAt(i++);
-        return setTimeout(type, 30);
-      }
-      step = 2;
-      i = 0;
-      return type();
-    }
+  function ketik(){
 
-    if (step === 2) {
-      if (i < textAfterTop.length) {
-        terminal.innerHTML += textAfterTop.charAt(i++);
-        return setTimeout(type, 1);
-      }
-      step = 3;
-      terminal.innerHTML += tableHeader;
-      return tampilkanData();
+    if(i < rahasia.length){
+
+      span.textContent += rahasia.charAt(i);
+
+      i++;
+
+      setTimeout(ketik,40);
+
+    }else{
+
+      tampilkanData();
     }
   }
 
-  type();
+  ketik();
 }
 
-/* ================== TAMPILKAN DATA ================== */
-async function tampilkanData() {
+/* ================= TAMPILKAN DATA ================= */
 
-  const terminal = document.getElementById("terminal");
+async function tampilkanData(){
 
-  try {
+  const terminal =
+  document.getElementById("terminal");
+
+  terminal.innerHTML +=
+`
+
+---------------------------------------------------------------------------------------------------------------
+NO   NAMA                          JAN      FEB      MAR      APR      MEI      JUN      JUL      AGS      SEP      OKT      NOV      DES
+---------------------------------------------------------------------------------------------------------------
+`;
+
+  try{
 
     const data = await fetchData();
-    if (!Array.isArray(data)) {
+
+    if(!Array.isArray(data)){
+
       terminal.innerHTML += `
-
-[ DATABASE ERROR ]
-INVALID JSON RESPONSE
-
+DATABASE ERROR
 `;
 
       return;
     }
 
-    data.forEach(row => {
+    data.forEach(row=>{
 
       let line =
-`${String(row.no || "").padEnd(5)}${String(row.nama || "").padEnd(32)}${String(row.jan || "").padEnd(10)}${String(row.feb || "").padEnd(10)}${String(row.mart || "").padEnd(10)}${String(row.aprl || "").padEnd(10)}${String(row.mei || "").padEnd(10)}${String(row.jun || "").padEnd(10)}${String(row.jul || "").padEnd(10)}${String(row.agst || "").padEnd(10)}${String(row.sept || "").padEnd(10)}${String(row.okt || "").padEnd(10)}${String(row.nov || "").padEnd(10)}${String(row.des || "").padEnd(10)}${String(row.keterangan || "")}\n`;
+`${fix(row.no,5)}${fix(row.nama,30)}${fix(row.jan,9)}${fix(row.feb,9)}${fix(row.mart,9)}${fix(row.aprl,9)}${fix(row.mei,9)}${fix(row.jun,9)}${fix(row.jul,9)}${fix(row.agst,9)}${fix(row.sept,9)}${fix(row.okt,9)}${fix(row.nov,9)}${fix(row.des,9)}\n`;
 
-      if (
-        String(row.pangkat || "")
-        .toUpperCase()
-        .includes("PNS")
-      ) {
-        line = `<span class="yellow">${line}</span>`;
-      }
+      const ket =
+      String(row.keterangan || "")
+      .toUpperCase();
 
-      const keterangan =
-        String(row.keterangan || "")
-        .toUpperCase();
-
-      if (keterangan.includes("PRIORITAS")) {
+      if(ket.includes("PRIORITAS")){
 
         terminal.innerHTML +=
-          `<span class="blink-prioritas">${line}</span>`;
+        `<span class="blink-X">${line}</span>`;
 
-      } else {
+      }else{
 
         terminal.innerHTML += line;
       }
+
     });
 
-    terminal.innerHTML += `
---------------------------------------------------------------------------------------------------------------
-* Data jabatan kosong diperbarui otomatis dari Spreadsheet.
-* Informasi hanya untuk lingkungan PUSLAT KODIKLATAU.
---------------------------------------------------------------------------------------------------------------
+    terminal.innerHTML +=
+`
+---------------------------------------------------------------------------------------------------------------
+* Data diperbarui otomatis dari Spreadsheet.
+* Informasi hanya untuk lingkungan RT 001 RW 001.
+---------------------------------------------------------------------------------------------------------------
 `;
 
-  } catch(err) {
+  }catch(err){
 
-    terminal.innerHTML += `
-
-[ SYSTEM ERROR ]
+    terminal.innerHTML +=
+`
+SYSTEM ERROR
 
 ${err}
-
 `;
 
     console.error(err);
@@ -368,42 +447,52 @@ ${err}
   terminal.classList.remove("typing");
 
   document.getElementById("buttons")
-    .classList.remove("hidden");
+  .classList.remove("hidden");
 }
 
-</script>
-<script>
-// Fullscreen untuk Android WebView / PWA
-function forceFullscreen() {
+/* ================= FULLSCREEN ================= */
+
+function forceFullscreen(){
+
   const elem = document.documentElement;
 
-  if (elem.requestFullscreen) {
+  if(elem.requestFullscreen){
+
     elem.requestFullscreen().catch(()=>{});
-  } else if (elem.webkitRequestFullscreen) {
+
+  }else if(elem.webkitRequestFullscreen){
+
     elem.webkitRequestFullscreen();
   }
 }
 
-// Deteksi jika dijalankan sebagai PWA atau WebView
-function isStandalone() {
-  return (window.matchMedia('(display-mode: standalone)').matches || 
-          window.navigator.standalone === true);
+function isStandalone(){
+
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true
+  );
 }
 
-// Jika PWA → langsung fullscreen
-if (isStandalone()) {
-  setTimeout(forceFullscreen, 500);
+if(isStandalone()){
+
+  setTimeout(forceFullscreen,500);
 }
 
-// Jika Android WebView → auto fullscreen
-if (navigator.userAgent.includes("wv") || navigator.userAgent.includes("Android")) {
-  setTimeout(forceFullscreen, 800);
+if(
+  navigator.userAgent.includes("wv") ||
+  navigator.userAgent.includes("Android")
+){
+
+  setTimeout(forceFullscreen,800);
 }
 
-// Browser biasa tetap butuh klik pertama
-document.addEventListener("click", function() {
+document.addEventListener("click",function(){
+
   forceFullscreen();
-}, { once: true });
+
+},{ once:true });
+
 </script>
 
 </body>
