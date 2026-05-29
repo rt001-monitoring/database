@@ -453,7 +453,14 @@ async function tampilkanData(){
     `;
 
     // filter data yg punya nomor
-    const warga = data.filter(row => row.no);
+    const warga = data.filter(row => {
+
+  return (
+    row.no &&
+    !isNaN(row.no)
+  );
+
+});
 
     warga.forEach(row=>{
 
