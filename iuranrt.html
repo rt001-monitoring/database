@@ -127,6 +127,18 @@ pre {
 @media (max-width: 1100px) { #terminal { font-size: 8px !important; } }
 @media (max-width: 800px)  { #terminal { font-size: 7px !important; } }
 @media (max-width: 600px)  { #terminal { font-size: 6px !important; } }
+#terminal table{
+  border-collapse: collapse;
+  width: 100%;
+  color:#00ff00;
+}
+
+#terminal td,
+#terminal th{
+  border:1px solid #00ff00;
+  padding:6px;
+  font-size:12px;
+}
 </style>
 </head>
 
@@ -138,13 +150,13 @@ pre {
   <p class="hidden">>>> accessing database node...</p>
   <p class="hidden">>>> verifying security clearance...</p>
   <p class="hidden">>>> clearance level verified ✓</p>
-  <p class="hidden">>>> retrieving jabatan kosong...</p>
+  <p class="hidden">>>> retrieving iuran warga RT 001...</p>
 </div>
 
 <!-- MAIN -->
 <div id="main" class="hidden">
   <div id="runningText">
-    <span>⚠ DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN PUSLAT KODIKLATAU ⚠ </span>
+    <span>DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001 </span>
   </div>
   <pre id="terminal" class="typing"></pre>
 </div>
@@ -179,7 +191,7 @@ lines.forEach((line, idx) => {
 async function fetchData() {
   try {
     const url =
-      "https://script.google.com/macros/s/AKfycbxG2QC7-7XV85pCJA32jLscOaHa_UCoRSeAIlFmtKZ2OC_UVH9riEjxSLaNbcdzDwW4/exec";
+      "https://script.google.com/macros/s/AKfycbwJvrc-jA1JS-Udy_MjSTCqwCvWFfBBypTR8ubpu_EICkb077IqymxwrnqIa_8ZfXqI/exec";
 
     const res = await fetch(url);
     if (!res.ok) {
@@ -236,26 +248,24 @@ async function startTyping() {
   const terminal = document.getElementById("terminal");
 
   const textBefore = `
-====================================
-| FILE: JABATAN KOSONG PUSLAT       |
-| CLASSIFICATION: `;
+---------------------------------
+FILE: IURAN WARGA RT OO1       
+CLASSIFICATION: `;
 
   const rahasia = "RAHASIA";
 
   const textAfterTop = `
-====================================
+---------------------------------
 `;
-
   const tableHeader = `
-
---------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 `;
 
   const footer = `
---------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 * Data jabatan kosong diperbarui otomatis dari Spreadsheet.
-* Informasi hanya untuk lingkungan PUSLAT KODIKLATAU.
---------------------------------------------------------------------------------------------------------------
+* Informasi hanya untuk lingkungan RT 001 RW 001.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 `;
 
   let i = 0, step = 0;
@@ -308,60 +318,47 @@ async function tampilkanData() {
   try {
 
     const data = await fetchData();
-    if (!Array.isArray(data)) {
-      terminal.innerHTML += `
 
-[ DATABASE ERROR ]
-INVALID JSON RESPONSE
+    let output = `
 
++-----+------------------------------+------+------+------+------+------+------+------+------+------+------+------+------+------------------+
+| NO  | NAMA                         | JAN  | FEB  | MAR  | APR  | MEI  | JUN  | JUL  | AGS  | SEP  | OKT  | NOV  | DES  | KETERANGAN      |
++-----+------------------------------+------+------+------+------+------+------+------+------+------+------+------+------+------------------+
 `;
-
-      return;
-    }
 
     data.forEach(row => {
 
-      let line =
-`${String(row.no || "").padEnd(5)}${String(row.nama || "").padEnd(32)}${String(row.jan || "").padEnd(10)}${String(row.feb || "").padEnd(10)}${String(row.mart || "").padEnd(10)}${String(row.aprl || "").padEnd(10)}${String(row.mei || "").padEnd(10)}${String(row.jun || "").padEnd(10)}${String(row.jul || "").padEnd(10)}${String(row.agst || "").padEnd(10)}${String(row.sept || "").padEnd(10)}${String(row.okt || "").padEnd(10)}${String(row.nov || "").padEnd(10)}${String(row.des || "").padEnd(10)}${String(row.keterangan || "")}\n`;
+      output +=
+`| ${(row.no || "").toString().padEnd(3)}
+| ${(row.nama || "").toString().padEnd(28)}
+| ${(row.jan || "").toString().padEnd(4)}
+| ${(row.feb || "").toString().padEnd(4)}
+| ${(row.mart || "").toString().padEnd(4)}
+| ${(row.aprl || "").toString().padEnd(4)}
+| ${(row.mei || "").toString().padEnd(4)}
+| ${(row.jun || "").toString().padEnd(4)}
+| ${(row.jul || "").toString().padEnd(4)}
+| ${(row.agst || "").toString().padEnd(4)}
+| ${(row.sept || "").toString().padEnd(4)}
+| ${(row.okt || "").toString().padEnd(4)}
+| ${(row.nov || "").toString().padEnd(4)}
+| ${(row.des || "").toString().padEnd(4)}
+| ${(row.keterangan || "").toString().padEnd(16)} |
+`;
 
-      if (
-        String(row.pangkat || "")
-        .toUpperCase()
-        .includes("PNS")
-      ) {
-        line = `<span class="yellow">${line}</span>`;
-      }
+      output += "+-----+------------------------------+------+------+------+------+------+------+------+------+------+------+------+------+------------------+\n";
 
-      const keterangan =
-        String(row.keterangan || "")
-        .toUpperCase();
-
-      if (keterangan.includes("PRIORITAS")) {
-
-        terminal.innerHTML +=
-          `<span class="blink-prioritas">${line}</span>`;
-
-      } else {
-
-        terminal.innerHTML += line;
-      }
     });
 
-    terminal.innerHTML += `
---------------------------------------------------------------------------------------------------------------
-* Data jabatan kosong diperbarui otomatis dari Spreadsheet.
-* Informasi hanya untuk lingkungan PUSLAT KODIKLATAU.
---------------------------------------------------------------------------------------------------------------
-`;
+    terminal.textContent += output;
 
   } catch(err) {
 
-    terminal.innerHTML += `
+    terminal.textContent += `
 
 [ SYSTEM ERROR ]
 
 ${err}
-
 `;
 
     console.error(err);
@@ -371,7 +368,7 @@ ${err}
 
   document.getElementById("buttons")
     .classList.remove("hidden");
-}
+}   
 
 </script>
 <script>
