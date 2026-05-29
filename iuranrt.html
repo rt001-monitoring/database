@@ -3,101 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>evolution is my REVOLUTION</title>
 
 <style>
+
 body{
-  background:black;
+  background:#000;
   color:#00ff00;
   font-family:"Courier New", monospace;
-  padding:20px;
-  font-size:12px;
+  margin:0;
+  padding:8px;
   overflow:hidden;
 }
 
+/* LOADING */
 #loading{
-  white-space:pre-wrap;
+  padding:20px;
+  font-size:12px;
 }
 
 .hidden{
   display:none;
 }
 
-/* TERMINAL */
-#terminal-wrapper{
-  width:100%;
-  overflow-x:auto;
-  overflow-y:hidden;
-  border:1px solid #00ff00;
-  padding:10px;
-  background:#000;
-}
-
-pre{
-  margin:0;
-  white-space:pre;
-  line-height:1.4;
-  font-family:"Courier New", monospace;
-  font-size:12px;
-  letter-spacing:0;
-  width:max-content;
-  min-width:100%;
-}
-
-/* Cursor */
-.typing{
-  border-right:2px solid #00ff00;
-  animation:blinkCursor .7s infinite;
-}
-
-@keyframes blinkCursor{
-  50%{
-    border-color:transparent;
-  }
-}
-
-/* Blink merah */
-.blink-red{
-  color:#ff0000;
-  animation:blinkRed .5s infinite;
-}
-
-@keyframes blinkRed{
-  0%,100%{
-    color:#ff0000;
-    text-shadow:0 0 5px #ff0000;
-  }
-  50%{
-    color:#330000;
-    text-shadow:none;
-  }
-}
-
-/* PRIORITAS */
-.blink-X{
-  color:#ffff00;
-  font-weight:bold;
-  animation:blinkX .6s infinite;
-}
-
-@keyframes blinkX{
-  0%,100%{
-    color:#ffff00;
-    text-shadow:0 0 6px #ffff00;
-  }
-  50%{
-    color:#333300;
-    text-shadow:none;
-  }
-}
-
-/* running text */
+/* RUNNING TEXT */
 #runningText{
-  color:#00ff00;
-  white-space:nowrap;
+  width:100%;
   overflow:hidden;
-  font-weight:bold;
+  white-space:nowrap;
   margin-bottom:10px;
+  font-size:12px;
+  font-weight:bold;
 }
 
 #runningText span{
@@ -115,60 +52,101 @@ pre{
   }
 }
 
+/* TERMINAL */
+#terminalBox{
+  border:1px solid #00ff00;
+  padding:10px;
+  overflow:auto;
+  height:78vh;
+}
+
+pre{
+  margin:0;
+  white-space:pre;
+  line-height:1.5;
+  font-size:12px;
+  font-family:"Courier New", monospace;
+}
+
+/* CURSOR */
+.typing{
+  border-right:2px solid #00ff00;
+  animation:blinkCursor .7s infinite;
+}
+
+@keyframes blinkCursor{
+  50%{
+    border-color:transparent;
+  }
+}
+
+/* BLINK MERAH */
+.blink-red{
+  color:#ff0000;
+  animation:blinkRed .5s infinite;
+}
+
+@keyframes blinkRed{
+  0%,100%{
+    color:#ff0000;
+  }
+
+  50%{
+    color:#330000;
+  }
+}
+
 /* BUTTON */
 .button-container{
   text-align:center;
-  margin-top:20px;
+  margin-top:15px;
 }
 
 button{
-  background:black;
+  background:#000;
   color:#00ff00;
   border:1px solid #00ff00;
-  padding:8px 20px;
-  font-size:12px;
+  padding:8px 18px;
+  margin:0 5px;
   cursor:pointer;
   border-radius:8px;
-  margin:0 10px;
-  transition:.3s;
   font-family:"Courier New", monospace;
+  font-size:12px;
 }
 
 button:hover{
   background:#00ff00;
-  color:black;
+  color:#000;
 }
 
 .download-btn{
-  color:#ff0000;
   border-color:#ff0000;
+  color:#ff0000;
   animation:blinkRed .5s infinite;
 }
 
 .download-btn:hover{
   background:#ff0000;
-  color:black;
-  animation:none;
+  color:#000;
 }
 
 /* RESPONSIVE */
 @media(max-width:900px){
+
   pre{
     font-size:10px;
   }
+
 }
 
-@media(max-width:700px){
+@media(max-width:600px){
+
   pre{
     font-size:8px;
   }
+
 }
 
-@media(max-width:500px){
-  pre{
-    font-size:7px;
-  }
-}
 </style>
 </head>
 
@@ -176,11 +154,25 @@ button:hover{
 
 <!-- LOADING -->
 <div id="loading">
+
 <p>>> initializing connection...</p>
-<p class="hidden">>>> accessing database node...</p>
-<p class="hidden">>>> verifying security clearance...</p>
-<p class="hidden">>>> clearance level verified ✓</p>
-<p class="hidden">>>> retrieving iuran warga RT 001...</p>
+
+<p class="hidden">
+>>> accessing database node...
+</p>
+
+<p class="hidden">
+>>> verifying security clearance...
+</p>
+
+<p class="hidden">
+>>> clearance level verified ✓
+</p>
+
+<p class="hidden">
+>>> retrieving iuran warga RT 001...
+</p>
+
 </div>
 
 <!-- MAIN -->
@@ -192,7 +184,7 @@ DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001
 </span>
 </div>
 
-<div id="terminal-wrapper">
+<div id="terminalBox">
 <pre id="terminal" class="typing"></pre>
 </div>
 
@@ -212,13 +204,15 @@ back to DATABASE
 </div>
 
 <script>
+
 /* ================= LOADING ================= */
 
-const lines = document.querySelectorAll("#loading p");
+const lines =
+document.querySelectorAll("#loading p");
 
-let delay = 800;
+let delay = 700;
 
-lines.forEach((line, idx)=>{
+lines.forEach((line,idx)=>{
 
   setTimeout(()=>{
 
@@ -228,7 +222,8 @@ lines.forEach((line, idx)=>{
 
       setTimeout(()=>{
 
-        document.getElementById("loading").style.display="none";
+        document.getElementById("loading")
+        .style.display = "none";
 
         document.getElementById("main")
         .classList.remove("hidden");
@@ -236,9 +231,10 @@ lines.forEach((line, idx)=>{
         startTyping();
 
       },1000);
+
     }
 
-  }, delay * (idx + 1));
+  },delay * (idx + 1));
 
 });
 
@@ -264,20 +260,25 @@ async function fetchData(){
     console.error(err);
 
     return [];
+
   }
+
 }
 
 /* ================= FIX WIDTH ================= */
 
-function fix(text, len){
+function fix(text,len){
 
   text = String(text || "");
 
   if(text.length > len){
-    return text.substring(0, len - 1) + " ";
+
+    return text.substring(0,len-1) + " ";
+
   }
 
-  return text.padEnd(len, " ");
+  return text.padEnd(len," ");
+
 }
 
 /* ================= DOWNLOAD PDF ================= */
@@ -302,19 +303,25 @@ async function downloadFile(){
     const bytes = new Uint8Array(binary.length);
 
     for(let i=0;i<binary.length;i++){
+
       bytes[i] = binary.charCodeAt(i);
+
     }
 
-    const blob = new Blob([bytes], {
+    const blob = new Blob([bytes],{
       type:"application/pdf"
     });
 
-    const blobUrl = URL.createObjectURL(blob);
+    const blobUrl =
+    URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
+    const link =
+    document.createElement("a");
 
     link.href = blobUrl;
-    link.download = "iuran_rt001.pdf";
+
+    link.download =
+    "iuran_rt001.pdf";
 
     document.body.appendChild(link);
 
@@ -329,50 +336,54 @@ async function downloadFile(){
     alert("DOWNLOAD FAILED");
 
     console.error(err);
+
   }
+
 }
 
-/* ================= EFEK KETIK ================= */
+/* ================= START ================= */
 
-async function startTyping(){
+function startTyping(){
 
   const terminal =
   document.getElementById("terminal");
 
-  const header =
-`---------------------------------------------------------------------------------------------------------------
+  terminal.innerHTML +=
+`----------------------------------------------------------------------------------------------------------
 FILE           : IURAN WARGA RT 001
 CLASSIFICATION : `;
 
-  const rahasia = "RAHASIA";
-
-  terminal.textContent = header;
-
-  const span = document.createElement("span");
+  const span =
+  document.createElement("span");
 
   span.className = "blink-red";
 
   terminal.appendChild(span);
 
+  const txt = "RAHASIA";
+
   let i = 0;
 
   function ketik(){
 
-    if(i < rahasia.length){
+    if(i < txt.length){
 
-      span.textContent += rahasia.charAt(i);
+      span.textContent += txt.charAt(i);
 
       i++;
 
-      setTimeout(ketik,40);
+      setTimeout(ketik,50);
 
     }else{
 
       tampilkanData();
+
     }
+
   }
 
   ketik();
+
 }
 
 /* ================= TAMPILKAN DATA ================= */
@@ -385,109 +396,69 @@ async function tampilkanData(){
   terminal.innerHTML +=
 `
 
----------------------------------------------------------------------------------------------------------------
-NO   NAMA                          JAN      FEB      MAR      APR      MEI      JUN      JUL      AGS      SEP      OKT      NOV      DES
----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+NO   NAMA                         JAN     FEB     MAR     APR     MEI     JUN     JUL     AGS     SEP     OKT     NOV     DES
+----------------------------------------------------------------------------------------------------------
 `;
 
   try{
 
     const data = await fetchData();
 
-    if(!Array.isArray(data)){
-
-      terminal.innerHTML += `
-DATABASE ERROR
-`;
-
-      return;
-    }
-
     data.forEach(row=>{
 
       let line =
-`${fix(row.no,5)}${fix(row.nama,30)}${fix(row.jan,9)}${fix(row.feb,9)}${fix(row.mart,9)}${fix(row.aprl,9)}${fix(row.mei,9)}${fix(row.jun,9)}${fix(row.jul,9)}${fix(row.agst,9)}${fix(row.sept,9)}${fix(row.okt,9)}${fix(row.nov,9)}${fix(row.des,9)}\n`;
+`${fix(row.no,5)}${fix(row.nama,29)}${fix(row.jan,8)}${fix(row.feb,8)}${fix(row.mart,8)}${fix(row.aprl,8)}${fix(row.mei,8)}${fix(row.jun,8)}${fix(row.jul,8)}${fix(row.agst,8)}${fix(row.sept,8)}${fix(row.okt,8)}${fix(row.nov,8)}${fix(row.des,8)}\n`;
 
-      const ket =
-      String(row.keterangan || "")
-      .toUpperCase();
-
-      if(ket.includes("PRIORITAS")){
-
-        terminal.innerHTML +=
-        `<span class="blink-X">${line}</span>`;
-
-      }else{
-
-        terminal.innerHTML += line;
-      }
+      terminal.innerHTML += line;
 
     });
 
     terminal.innerHTML +=
 `
----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
 * Data diperbarui otomatis dari Spreadsheet.
 * Informasi hanya untuk lingkungan RT 001 RW 001.
----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
 `;
 
   }catch(err){
 
     terminal.innerHTML +=
 `
+
 SYSTEM ERROR
 
 ${err}
+
 `;
 
-    console.error(err);
   }
 
   terminal.classList.remove("typing");
 
   document.getElementById("buttons")
   .classList.remove("hidden");
+
 }
 
 /* ================= FULLSCREEN ================= */
 
 function forceFullscreen(){
 
-  const elem = document.documentElement;
+  const elem =
+  document.documentElement;
 
   if(elem.requestFullscreen){
 
-    elem.requestFullscreen().catch(()=>{});
+    elem.requestFullscreen()
+    .catch(()=>{});
 
-  }else if(elem.webkitRequestFullscreen){
-
-    elem.webkitRequestFullscreen();
   }
+
 }
 
-function isStandalone(){
-
-  return (
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.navigator.standalone === true
-  );
-}
-
-if(isStandalone()){
-
-  setTimeout(forceFullscreen,500);
-}
-
-if(
-  navigator.userAgent.includes("wv") ||
-  navigator.userAgent.includes("Android")
-){
-
-  setTimeout(forceFullscreen,800);
-}
-
-document.addEventListener("click",function(){
+document.addEventListener("click",()=>{
 
   forceFullscreen();
 
