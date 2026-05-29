@@ -127,18 +127,6 @@ pre {
 @media (max-width: 1100px) { #terminal { font-size: 8px !important; } }
 @media (max-width: 800px)  { #terminal { font-size: 7px !important; } }
 @media (max-width: 600px)  { #terminal { font-size: 6px !important; } }
-#terminal table{
-  border-collapse: collapse;
-  width: 100%;
-  color:#00ff00;
-}
-
-#terminal td,
-#terminal th{
-  border:1px solid #00ff00;
-  padding:6px;
-  font-size:12px;
-}
 </style>
 </head>
 
@@ -150,15 +138,15 @@ pre {
   <p class="hidden">>>> accessing database node...</p>
   <p class="hidden">>>> verifying security clearance...</p>
   <p class="hidden">>>> clearance level verified ✓</p>
-  <p class="hidden">>>> retrieving iuran warga RT 001...</p>
+  <p class="hidden">>>> retrieving jabatan kosong...</p>
 </div>
 
 <!-- MAIN -->
 <div id="main" class="hidden">
   <div id="runningText">
-    <span>DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001 </span>
+    <span>⚠ DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN PUSLAT KODIKLATAU ⚠ </span>
   </div>
-  <div id="terminal" class="typing"></div>
+  <pre id="terminal" class="typing"></pre>
 </div>
 
 <!-- TOMBOL -->
@@ -191,7 +179,7 @@ lines.forEach((line, idx) => {
 async function fetchData() {
   try {
     const url =
-      "https://script.google.com/macros/s/AKfycbwJvrc-jA1JS-Udy_MjSTCqwCvWFfBBypTR8ubpu_EICkb077IqymxwrnqIa_8ZfXqI/exec";
+      "https://script.google.com/macros/s/AKfycbxG2QC7-7XV85pCJA32jLscOaHa_UCoRSeAIlFmtKZ2OC_UVH9riEjxSLaNbcdzDwW4/exec";
 
     const res = await fetch(url);
     if (!res.ok) {
@@ -248,24 +236,26 @@ async function startTyping() {
   const terminal = document.getElementById("terminal");
 
   const textBefore = `
----------------------------------
-FILE: IURAN WARGA RT OO1       
-CLASSIFICATION: `;
+====================================
+| FILE: JABATAN KOSONG PUSLAT       |
+| CLASSIFICATION: `;
 
   const rahasia = "RAHASIA";
 
   const textAfterTop = `
----------------------------------
+====================================
 `;
+
   const tableHeader = `
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------
 `;
 
   const footer = `
------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 * Data jabatan kosong diperbarui otomatis dari Spreadsheet.
-* Informasi hanya untuk lingkungan RT 001 RW 001.
------------------------------------------------------------------------------------------------------------------------------------------------------------
+* Informasi hanya untuk lingkungan PUSLAT KODIKLATAU.
+--------------------------------------------------------------------------------------------------------------
 `;
 
   let i = 0, step = 0;
@@ -318,70 +308,61 @@ async function tampilkanData() {
   try {
 
     const data = await fetchData();
+    if (!Array.isArray(data)) {
+      terminal.innerHTML += `
 
-    let html = `
-      <table>
-        <tr>
-          <th>NO</th>
-          <th>NAMA</th>
-          <th>JAN</th>
-          <th>FEB</th>
-          <th>MAR</th>
-          <th>APR</th>
-          <th>MEI</th>
-          <th>JUN</th>
-          <th>JUL</th>
-          <th>AGST</th>
-          <th>SEPT</th>
-          <th>OKT</th>
-          <th>NOV</th>
-          <th>DES</th>
-          <th>KETERANGAN</th>
-        </tr>
-    `;
+[ DATABASE ERROR ]
+INVALID JSON RESPONSE
+
+`;
+
+      return;
+    }
 
     data.forEach(row => {
 
-      html += `
-        <tr>
-          <td>${row.no || ""}</td>
-          <td>${row.nama || ""}</td>
-          <td>${row.jan || ""}</td>
-          <td>${row.feb || ""}</td>
-          <td>${row.mart || ""}</td>
-          <td>${row.aprl || ""}</td>
-          <td>${row.mei || ""}</td>
-          <td>${row.jun || ""}</td>
-          <td>${row.jul || ""}</td>
-          <td>${row.agst || ""}</td>
-          <td>${row.sept || ""}</td>
-          <td>${row.okt || ""}</td>
-          <td>${row.nov || ""}</td>
-          <td>${row.des || ""}</td>
-          <td>${row.keterangan || ""}</td>
-        </tr>
-      `;
+      let line =
+`${String(row.no || "").padEnd(5)}${String(row.nama || "").padEnd(32)}${String(row.jan || "").padEnd(10)}${String(row.feb || "").padEnd(10)}${String(row.mart || "").padEnd(10)}${String(row.aprl || "").padEnd(10)}${String(row.mei || "").padEnd(10)}${String(row.jun || "").padEnd(10)}${String(row.jul || "").padEnd(10)}${String(row.agst || "").padEnd(10)}${String(row.sept || "").padEnd(10)}${String(row.okt || "").padEnd(10)}${String(row.nov || "").padEnd(10)}${String(row.des || "").padEnd(10)}${String(row.keterangan || "")}\n`;
+
+      if (
+        String(row.pangkat || "")
+        .toUpperCase()
+        .includes("PNS")
+      ) {
+        line = `<span class="yellow">${line}</span>`;
+      }
+
+      const keterangan =
+        String(row.keterangan || "")
+        .toUpperCase();
+
+      if (keterangan.includes("PRIORITAS")) {
+
+        terminal.innerHTML +=
+          `<span class="blink-prioritas">${line}</span>`;
+
+      } else {
+
+        terminal.innerHTML += line;
+      }
     });
 
-    html += `
-      </table>
-
-      <br><br>
-
-      <div>
-      * Data diperbarui otomatis dari Spreadsheet.<br>
-      * Informasi hanya untuk lingkungan RT 001 RW 001.
-      </div>
-    `;
-
-    terminal.innerHTML = html;
+    terminal.innerHTML += `
+--------------------------------------------------------------------------------------------------------------
+* Data jabatan kosong diperbarui otomatis dari Spreadsheet.
+* Informasi hanya untuk lingkungan PUSLAT KODIKLATAU.
+--------------------------------------------------------------------------------------------------------------
+`;
 
   } catch(err) {
 
-    terminal.innerHTML = `
-      [ SYSTEM ERROR ]<br><br>
-      ${err}
-    `;
+    terminal.innerHTML += `
+
+[ SYSTEM ERROR ]
+
+${err}
+
+`;
 
     console.error(err);
   }
@@ -390,7 +371,7 @@ async function tampilkanData() {
 
   document.getElementById("buttons")
     .classList.remove("hidden");
-}   
+}
 
 </script>
 <script>
