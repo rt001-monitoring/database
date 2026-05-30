@@ -242,9 +242,7 @@ thead th{
   border-right:1px solid #00ff00;
 }
 .datetime-box{
-  position:absolute;
-  left:20px;
-  top:10px;
+  float:left;
   font-size:12px;
   color:#00ff00;
   font-family:"Courier New", monospace;
@@ -509,7 +507,7 @@ async function tampilkanData(){
   try{
 
     const data = await fetchData();
-
+  <div id="dateTime" class="datetime-box"></div>
     // ambil info atas
     const info = `
   <div class="title-main">
