@@ -549,13 +549,22 @@ async function tampilkanData(){
 
     terminal.innerHTML = info + html;
 
-// mulai dari nomor 1 (paling atas)
-const terminalBox = document.getElementById("terminalBox");
+    // selalu mulai dari paling atas
+    const terminalBox =
+    document.getElementById("terminalBox");
 
-terminalBox.scrollTop = 0;
-terminal.scrollIntoView({
-  block: "start"
-});
+    terminalBox.scrollTop = 0;
+
+    setTimeout(()=>{
+      terminalBox.scrollTop = 0;
+    },50);
+
+  }catch(err){
+
+    console.error(err);
+
+    terminal.innerHTML =
+    `<span style="color:red">SYSTEM ERROR</span>`;
 
   }
 
