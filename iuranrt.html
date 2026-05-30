@@ -621,6 +621,7 @@ ${info}
 ${html}
 </div>
 `;
+updateDateTime();
 
     // selalu mulai dari paling atas
     const terminalBox =
@@ -649,6 +650,10 @@ ${html}
 }
 function updateDateTime(){
 
+  const el = document.getElementById("dateTime");
+
+  if(!el) return;
+
   const now = new Date();
 
   const tgl =
@@ -657,9 +662,7 @@ function updateDateTime(){
   const jam =
   now.toLocaleTimeString("id-ID");
 
-  document.getElementById("dateTime")
-  .textContent =
-  `${tgl} ${jam}`;
+  el.textContent = `${tgl} ${jam}`;
 
 }
 
