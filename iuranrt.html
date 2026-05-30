@@ -241,6 +241,24 @@ thead th{
   border-left:1px solid #00ff00;
   border-right:1px solid #00ff00;
 }
+.datetime-box{
+  position:absolute;
+  left:20px;
+  top:10px;
+  font-size:12px;
+  color:#00ff00;
+  font-family:"Courier New", monospace;
+  animation:blinkDate 1s infinite;
+}
+
+@keyframes blinkDate{
+  0%,100%{
+    opacity:1;
+  }
+  50%{
+    opacity:.3;
+  }
+}
 </style>
 </head>
 
@@ -271,6 +289,7 @@ thead th{
 
 <!-- MAIN -->
 <div id="main" class="hidden">
+<div id="dateTime" class="datetime-box"></div>
 
 <div id="runningText">
 <span>
@@ -625,7 +644,24 @@ ${html}
   .classList.remove("hidden");
 
 }
+function updateDateTime(){
 
+  const now = new Date();
+
+  const tgl =
+  now.toLocaleDateString("id-ID");
+
+  const jam =
+  now.toLocaleTimeString("id-ID");
+
+  document.getElementById("dateTime")
+  .textContent =
+  `${tgl} ${jam}`;
+
+}
+
+updateDateTime();
+setInterval(updateDateTime,1000);
 /* ================= FULLSCREEN ================= */
 
 function forceFullscreen(){
