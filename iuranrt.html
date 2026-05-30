@@ -222,8 +222,17 @@ thead th{
 #tableArea{
   flex:1;
   overflow:auto;
-  border-top:1px solid #00ff00;
-  border-bottom:1px solid #00ff00;
+  position:relative;
+}
+
+#tableArea::after{
+  content:"";
+  position:sticky;
+  bottom:0;
+  display:block;
+  height:1px;
+  background:#00ff00;
+  z-index:200;
 }
 
 #tableArea thead th{
