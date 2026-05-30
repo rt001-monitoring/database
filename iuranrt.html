@@ -163,6 +163,9 @@ th,td{
 
 th{
   background:#001100;
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
 td.nama{
@@ -203,6 +206,29 @@ thead th{
   top:0;
   background:#001100;
   z-index:10;
+}
+#terminal{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+#headerArea{
+  flex:none;
+  background:#000;
+  padding-bottom:10px;
+}
+
+#tableArea{
+  flex:1;
+  overflow:auto;
+}
+
+#tableArea thead th{
+  position:sticky;
+  top:0;
+  background:#001100;
+  z-index:100;
 }
 </style>
 </head>
@@ -553,7 +579,15 @@ async function tampilkanData(){
     </table>
     `;
 
-    terminal.innerHTML = info + html;
+    terminal.innerHTML = `
+<div id="headerArea">
+${info}
+</div>
+
+<div id="tableArea">
+${html}
+</div>
+`;
 
     // selalu mulai dari paling atas
     const terminalBox =
