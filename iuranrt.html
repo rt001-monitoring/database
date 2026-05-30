@@ -172,7 +172,10 @@ td.nama{
   text-align:left;
 }
 .title-main{
-  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
   font-size:18px;
   font-weight:bold;
   margin-bottom:5px;
@@ -242,7 +245,10 @@ thead th{
   border-right:1px solid #00ff00;
 }
 .datetime-box{
-  float:left;
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
   font-size:12px;
   color:#00ff00;
   font-family:"Courier New", monospace;
@@ -287,7 +293,6 @@ thead th{
 
 <!-- MAIN -->
 <div id="main" class="hidden">
-<div id="dateTime" class="datetime-box"></div>
 <div id="runningText">
 <span>
 DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001
@@ -509,10 +514,10 @@ async function tampilkanData(){
  
     // ambil info atas
     const info = `
-  <div id="dateTime" class="datetime-box"></div>
   <div class="title-main">
-    IURAN BULANAN WARGA RT 001
-  </div>
+  <div id="dateTime" class="datetime-box"></div>
+  IURAN BULANAN WARGA RT 001
+</div>
 
   <div class="title-sub">
     DURI KOSAMBI TH 2026
