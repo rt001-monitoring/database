@@ -55,15 +55,12 @@ body{
 }
 
 /* TERMINAL */
-#terminalBox::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:1px;
-  background:#00ff00;
-  z-index:9999;
+#terminalBox{
+  border:1px solid #00ff00;
+  padding:10px;
+  height:78vh;
+  overflow:hidden;
+  position:relative;
 }
 
 pre{
