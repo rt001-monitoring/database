@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>evolution is my revolution</title>
+<style>
+body {
+  background-color: black;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+  padding: 15px;
+}
+h1 {
+  text-align: center;
+  color: #00ff00; 
+  margin: 0;
+  line-height: 1.1;
+  font-size: 65px;
+}
+h2 {
+  text-align: center;
+  color: #ff0000; 
+  margin: 0;
+  line-height: 1.1;
+  font-size: 40px;
+  animation: blinkText 0.5s infinite;
+}
+.content {
+  margin-top: 50px;
+}  
+.top-buttons {
+  text-align: right;
+  margin-top: 30px;
+  margin-left: 150px;
+  margin-right: 0px;
+  margin-bottom: 15px; 
+}
+button {
+  background: transparent;
+  border: 1px solid #00ff00;
+  padding: 5px 12px;
+  color: #00ff00;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+button:hover {
+  background: #00ff00;
+  color: black;
+}
+.folder, .file {
+  margin-left: 15px;
+  border-left: 1px solid #00ff00;
+  padding-left: 25px;
+}
+.folder-name {
+  cursor: pointer;
+  color: #00ff00;
+  font-size: 15px;
+  font-weight: normal;
+  margin-bottom: 25px; /* ✅ tambahkan jarak antar folder */
+}
+.folder-name:hover {
+  color: #33ff33;
+}
+.file-item {
+  margin: 4px 0;
+  font-size: 13px;
+}
+@keyframes blinkText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes blinkRecording{0%,50%,100%{opacity:1}25%,75%{opacity:0}}
+.recording-indicator { position:fixed; top:40px; left:15px; font-family:'Courier New', monospace; font-size:15px; font-weight:bold; color:#FF0000; animation:blinkRecording 1s infinite; z-index:9999; user-select:none; }
+.date-time { position:fixed; top:10px; left:100px; }
+.header-buttons { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:8px; }
+.header-buttons button {
+    background:transparent; border:1px solid #00FF00; color:#00FF00; padding:8px 12px; cursor:pointer; border-radius:4px;
+    font-family:'Courier New',monospace; transition:background .25s, color .25s;
+}
+.highlight-section {
+    color: #FFFF00; /* kuning terang untuk label data utama */
+    font-weight: bold;
+}
+.header-buttons button:hover { background-color: #00FF00; color: black; }
+
+.main-container { display: flex; flex: 1; border-top: 1px solid #00FF00; }
+.search-panel {
+    width: 35%; padding: 20px; display: flex; flex-direction: column;
+    border-right: 2px solid #00FF00;
+}
+.underline-solid {
+  border-bottom: 0.5px solid #777b7e;
+  width: 100%;
+  margin-top: 10px;
+}
+.typing-container {
+  width: 100%;
+  text-align: letf;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: #777b7e;
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 1px;  
+}
+
+#typing-text::after {
+  content: "_";
+  animation: blinkCursor 0.5s infinite;
+  color: #777b7e;
+}
+
+@keyframes blinkCursor {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.logo-top-right {
+  position: fixed;
+  top: 0px;
+  right: 10px;
+  z-index: 10000; /* di atas semua elemen */
+}
+.logo-top-right img {
+  width: 150px; /* sesuaikan ukuran */
+  height: auto;
+}
+</style>
+</head>
+<body>
+  <div class="recording-indicator">● RECORDING  
+  <p style="font-size:12px;color:#ffff00">
+  DATE/TIME : <span class="code-private" id="tanggal"></span></p>
+  </div>
+  <div class="logo-top-right">
+  <img src="logopuslat.png" alt="Logo">    
+  </div
+  <header>  
+  <h1>INTEGRATED</h1>
+  <h1>MONITORING SYSTEM</h1>
+  <h2>PUSAT DATA DAN ARSIP</h2>
+  <div class="typing-container">
+  <span id="typing-text"></span>
+</div>
+  <div class="underline-solid"></div>
+</div>  
+  <div class="header-buttons" id="menuButtons" style="display:none;">
+        <button onclick="history.back()">back to DATABASE</button>
+        <button onclick="window.location.href='index.html'">LOGOUT</button>
+  </div>
+</header>
+  <div id="content">Memuat struktur folder...</div>
+  <script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwi8txIXf3MvZMnUYPV30GJlqFfz43Du71gXLzLLbwznZLX7BVSLAcV8AamlUa9GQ5q/exec'; // Ganti URL kamu
+  
+  fetch(SCRIPT_URL)
+    .then(r => r.json())
+    .then(data => displayStructure(data))
+    .catch(err => {
+      document.getElementById('content').innerHTML = `<b style="color:red">Gagal memuat data</b><br>${err}`;
+    });
+
+  function displayStructure(data) {
+  document.getElementById('content').innerHTML = renderFolder(data);
+
+  // tampilkan tombol setelah folder selesai dimuat
+  document.getElementById("menuButtons").style.display = "flex";
+}
+
+  function renderFolder(folder) {
+    let html = `<div class="folder"><div class="folder-name" onclick="toggleFolder(this)">📁 ${folder.name}</div>`;
+    html += `<div class="children" style="display:none;">`;
+    folder.children.forEach(item => {
+      if (item.type === 'folder') {
+        html += renderFolder(item);
+      } else {
+        html += `
+          <div class="file-item">
+            📄 ${item.name}
+            <button onclick="window.open('${item.url}', '_blank')">Lihat</button>
+            <button onclick="downloadFile('${item.url}')">Unduh</button>
+            <div style="font-size:11px; color:#66ff66;">${item.date} | ${item.size}</div>
+          </div>
+        `;
+      }
+    });
+    html += `</div></div>`;
+    return html;
+  }
+
+  function toggleFolder(el) {
+    const content = el.nextElementSibling;
+    content.style.display = content.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function downloadFile(url) {
+    window.open(url + '?export=download', '_blank');
+  }
+
+  function logout() {
+    if (confirm("Yakin ingin logout?")) {
+      window.location.href = 'login.html';
+    }
+  }
+  </script>
+  <script>
+// Fullscreen untuk Android WebView / PWA
+function forceFullscreen() {
+  const elem = document.documentElement;
+
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(()=>{});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+
+// Deteksi jika dijalankan sebagai PWA atau WebView
+function isStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches || 
+          window.navigator.standalone === true);
+}
+
+// Jika PWA → langsung fullscreen
+if (isStandalone()) {
+  setTimeout(forceFullscreen, 500);
+}
+
+// Jika Android WebView → auto fullscreen
+if (navigator.userAgent.includes("wv") || navigator.userAgent.includes("Android")) {
+  setTimeout(forceFullscreen, 800);
+}
+
+// Browser biasa tetap butuh klik pertama
+document.addEventListener("click", function() {
+  forceFullscreen();
+}, { once: true });
+</script>
+<script>
+function tampilkanTanggal() {
+  const now = new Date();
+
+  const hari = String(now.getDate()).padStart(2, '0');
+  const bulan = String(now.getMonth() + 1).padStart(2, '0');
+  const tahun = now.getFullYear();
+
+  const jam = String(now.getHours()).padStart(2, '0');
+  const menit = String(now.getMinutes()).padStart(2, '0');
+  const detik = String(now.getSeconds()).padStart(2, '0');
+
+  const format = `${hari}-${bulan}-${tahun} ${jam}:${menit}:${detik}`;
+
+  document.getElementById("tanggal").textContent = format;
+}
+
+// update tiap detik biar live
+setInterval(tampilkanTanggal, 1000);
+tampilkanTanggal();
+</script>
+<script>
+const text =
+"IMS terintegrasi melalui Integrated System Upload PUSAT DATA DAN ARSIP Puslat Kodiklatau";
+
+let index = 0;
+
+function typeEffect() {
+  const target = document.getElementById("typing-text");
+
+  if (index < text.length) {
+    target.textContent += text.charAt(index);
+    index++;
+    setTimeout(typeEffect, 45);
+  } else {
+    // ulang lagi setelah selesai
+    setTimeout(() => {
+      target.textContent = "";
+      index = 0;
+      typeEffect();
+    }, 2500);
+  }
+}
+
+typeEffect();
+</script>
+</body>
+</html>
