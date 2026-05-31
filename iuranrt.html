@@ -265,57 +265,20 @@ thead th{
 }
 /* DROPDOWN LAP KEUANGAN */
 
-.dropdown{
-  position:relative;
-  display:inline-block;
-}
-
-.dropdown-btn{
-  background:#000;
-  color:#00ff00;
-  border:1px solid #00ff00;
-  padding:8px 18px;
-  cursor:pointer;
-  border-radius:8px;
-  font-family:"Courier New", monospace;
-}
-
-.dropdown-btn:hover{
-  background:#00ff00;
-  color:#000;
-}
-
 .dropdown-content{
   display:none;
-  position:absolute;
-  left:0;
-  top:100%;
-  min-width:180px;
+  position:fixed;
+
+  bottom:70px;     /* jarak dari bawah layar */
+  left:50%;
+  transform:translateX(-50%);
+
+  width:220px;
   background:#000;
   border:1px solid #00ff00;
-  z-index:9999;
-}
+  z-index:999999;
 
-.dropdown-content button{
-  display:block;
-  width:100%;
-  margin:0;
-  border:none;
-  border-bottom:1px solid #003300;
-  border-radius:0;
-  text-align:left;
-  padding:10px;
-  background:#000;
-  color:#00ff00;
-}
-
-.dropdown-content button:hover{
-  background:#00ff00;
-  color:#000;
-}
-
-.dropdown:hover .dropdown-content{
-  display:block;
+  box-shadow:0 0 15px #00ff00;
 }
 </style>
 </head>
