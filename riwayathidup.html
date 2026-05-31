@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>evolution is my revolution</title>
+<style>
+/* ====================================
+   CSS: Tampilan Terminal Matrix
+   ==================================== */
+
+body {
+    font-family: 'Courier New', monospace;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+        url('BT5.jpg'); /* Gambar latar belakang */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #00FF00;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* ======= VIDEO BACKGROUND ======= */
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* selalu di belakang */
+    opacity: 0.6; /* ubah sesuai kebutuhan */
+}
+
+header {
+    
+    padding: 20px 0 10px 0;
+    text-align: center;
+    line-height: 1.1;
+    border-bottom: 1px solid #00FF00;
+}
+
+.text {
+    font-size: 75px;
+    margin-bottom: 0;
+    line-height:0.5;
+    color: #00FF00; /* Judul utama kuning */
+}
+
+.text1 {
+    font-size: 30px;
+    margin-top: 0.7;
+    color: #FF0000; /* Judul kedua merah berkedip */
+    animation: blinkText 1s infinite;
+}
+
+.header-buttons button {
+    background: transparent;
+    border: 1px solid #00FF00;
+    color: #00FF00;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    transition: background 0.3s, color 0.3s;
+}
+
+.highlight-section {
+    color: #FFFF00; /* kuning terang untuk label data utama */
+    font-weight: bold;
+}
+
+.header-buttons button:hover { background-color: #00FF00; color: black; }
+
+.main-container { display: flex; flex: 1; border-top: 1px solid #00FF00; }
+.search-panel {
+    width: 35%; padding: 20px; display: flex; flex-direction: column;
+    border-right: 2px solid #00FF00;
+}
+.search-panel h2 { text-align: center; margin-bottom: 20px; color: #ffff00; }
+input, select {
+    background: transparent; border: 1px solid #00FF00; color: #00FF00;
+    padding: 10px; margin-bottom: 15px; font-size: 16px; border-radius: 4px; outline: none;
+}
+.info-text { font-size: 14px; text-align: center; margin-top: 10px; }
+#member-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+
+.output-panel { flex: 1; padding: 20px; overflow-y: auto; border-left: 2px solid #00FF00; }
+
+.agent-profile { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+.agent-profile pre { flex: 1; white-space: pre-wrap; line-height: 1.4; }
+.agent-profile img {
+    /* **PENTING: Pengaturan foto awal tersembunyi untuk animasi** */
+    width: 135px; height: 185px; object-fit: cover;
+    border: 2px solid #000000; border-radius: 1px;
+    display: none; /* Awalnya disembunyikan */
+    opacity: 0; /* Awalnya tidak terlihat */
+    transition: opacity 1.2s ease-in-out;
+}
+
+.doc-buttons { display: flex; gap: 10px; margin-top: 15px; }
+.not-found { color: #FF0000; font-weight: bold; }
+
+.recording-indicator { position:fixed; top:40px; left:15px; font-family:'Courier New', monospace; font-size:15px; font-weight:bold; color:#FF0000; animation:blinkRecording 1s infinite; z-index:9999; user-select:none; }
+
+button {
+    background: transparent; border: 1px solid #00FF00; color: #00FF00;
+    padding: 8px 12px; cursor: pointer; border-radius: 4px;
+    font-family: 'Courier New', monospace; transition: background 0.3s, color 0.3s;
+}
+button:hover { background-color: #00FF00; color: black; }
+
+/* Animasi */
+.agent-profile pre::after { content: "_"; animation: blink 1s infinite; }
+@keyframes blinkText { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }
+.secret-alert {
+    color: #FF0000;
+    font-weight: bold;
+    animation: blinkSecret 1s infinite;
+}
+@keyframes blinkSecret {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .main-container { flex-direction: column; }
+    .search-panel, .output-panel { width: 100%; border: none; border-bottom: 1px solid #00FF00; }
+    .agent-profile { flex-direction: column; align-items: center; }
+}
+.security-footnote-line {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* jarak tombol */
+    font-weight: bold;
+    color: #00FF00;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.catatan-btn {
+    background-color: red;      /* warna background */
+    color: white;               /* warna tulisan */
+    border: 2px solid red;      /* garis tepi */
+    padding: 5px 12px;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.catatan-btn:hover {
+    background-color: darkred;  /* warna saat hover */
+    border-color: darkred;
+}
+@keyframes blinkRecording{0%,50%,100%{opacity:1}25%,75%{opacity:0}
+}
+.date-time { position:fixed; top:10px; left:15px; }
+</style>
+</head>
+<body>
+
+<!-- ===== VIDEO BACKGROUND ===== -->
+<video autoplay muted loop id="bg-video">
+  <source src="" type="video/mp4">
+  Browser Anda tidak mendukung video tag.
+</video>
+<div class="recording-indicator">● RECORDING</span>
+</div>
+<div class="date-time">
+<p style="font-size:12px;color:#ffff00">
+DATE/TIME : <span class="code-private" id="tanggal"></span></p>
+</div>
+<header>
+    <h1 class="text">INTEGRATED</h1>
+    <h1 class="text">MONITORING SYSTEM</h1>
+    <h1 class="text1">DATA RIWAYAT HIDUP</h1>
+    <div class="header-buttons">
+        <button onclick="goTo('database.html')">back to DATABASE</button>
+        <button onclick="goTo('index.html')">LOGOUT</button>
+    </div>
+</header>
+
+<div class="main-container">
+    <div class="search-panel">
+        <h2>PUSLAT KODIKLATAU</h2>
+        <label for="category-filter">Filter By Category:</label>
+        <select id="category-filter">
+          <option value=""></option>
+        </select>
+
+        <label for="search">Enter the Unit Keyword / Full Name</label>
+        <input type="text" id="search" placeholder="">
+        <p class="info-text">Select a category and type a keyword, then press ENTER to display a list of members</p>
+        <div id="member-buttons"></div>
+    </div>
+
+    <!-- TOMBOL CATATAN ADA DI SINI -->
+    <div class="output-panel" id="output">
+
+    <div class="agent-profile" id="agent-container">
+        <pre id="agent-dossier">
+Biodata will appear after clicking the member button
+        </pre>
+        <img id="agent-photo" src="" alt="Foto Personel">
+    </div>
+  
+
+</div>
+
+<script>
+
+function goTo(url) {
+    if (!url || url.trim() === "" || url === "-") {
+        alert("❌ File belum tersedia untuk personel ini.");
+        return;
+    }
+    window.location.href = url; // ⬅ pindah HALAMAN, bukan TAB baru
+}
+ 
+
+// ======== LOAD DATABASE DARI GOOGLE SHEET ========
+let personnelDB = [];
+
+// URL Google Apps Script yang mengarah ke data sheet Anda
+const DATA_URL = "https://script.google.com/macros/s/AKfycbwOaWryx6rcs_POoEruPfgS4VmoghQvHMsFhAoAAFdBr23jgDVp01o0IaLXSog1DHjn_Q/exec";
+
+fetch(DATA_URL)
+  .then(res => res.json())
+  .then(data => {
+    // ✅ Bersihkan dan konversi link foto agar bisa langsung tampil
+    personnelDB = data.map(person => {
+      let photoURL = person.photo?.trim() || "";
+
+      if (photoURL) {
+        // Logika konversi link Google Drive (dari Google Form) ke Direct Access
+        
+        // 1. Jika link adalah URL berbagi penuh (drive.google.com/file/d/ID/view)
+        if (photoURL.includes("drive.google.com/file/d/")) {
+          // Ekstrak ID File
+          const match = photoURL.match(/\/d\/(.*?)\//);
+          if (match && match[1]) {
+            // Ubah ke format Direct Access
+            photoURL = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+          }
+        }
+        // 2. Jika hanya ID (ID yang diekstrak dari Google Form)
+        else if (/^[A-Za-z0-9_-]{25,}$/.test(photoURL)) {
+          photoURL = `https://drive.google.com/uc?export=view&id=${photoURL}`;
+        }
+      } else {
+        // photo default jika kolom 'photo' kosong
+        photoURL = "https://drive.google.com/uc?export=view&id=13KgFyUzOSIUhfK8qw0skSLOEq5Yj0xp2";
+      }
+
+      return { ...person, photoid: photoURL };
+    });
+
+    console.log("✅ Data loaded & foto links normalized", personnelDB);
+    populateCategoryDropdown();
+  })
+  .catch(err => console.error("❌ Gagal memuat data:", err));
+
+
+function populateCategoryDropdown() {
+    const categorySelect = document.getElementById("category-filter");
+    const uniqueCategories = [...new Set(personnelDB.map(p => p.kategori).filter(Boolean))];
+    uniqueCategories.sort();
+    uniqueCategories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categorySelect.appendChild(opt);
+    });
+}
+
+// ======== ELEMENTS ========
+const searchInput = document.getElementById("search");
+const dossierEl = document.getElementById("agent-dossier");
+const photoEl = document.getElementById("agent-photo");
+const memberBtnContainer = document.getElementById("member-buttons");
+const agentContainer = document.getElementById("agent-container");
+const outputPanel = document.getElementById("output");
+
+
+// ======== FUNGSI UTILITAS ========
+function formatTanggalIndonesia(dateStr) {
+    if (!dateStr) return "-";
+    let date;
+    try {
+        date = new Date(dateStr);
+        if (isNaN(date)) {
+            const parts = dateStr.includes("/") ? dateStr.split("/") : dateStr.split("-");
+            if (parts.length === 3) {
+                const [d, m, y] = parts.map(Number);
+                date = new Date(y, m - 1, d);
+            } else return dateStr;
+        }
+    } catch {
+        return dateStr;
+    }
+    const d = String(date.getDate()).padStart(2, "0");
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const y = date.getFullYear();
+    return `${d}/${m}/${y}`;
+}
+
+function getDetailedDiff(startDate) {
+    if (!startDate || isNaN(startDate)) return "-";
+    const today = new Date();
+
+    // Fungsi ini dikhususkan untuk menghitung sisa waktu (next KGB)
+    if (startDate < today) return "Sudah lewat";
+    
+    // Perhitungan selisih yang lebih akurat
+    const diffTime = Math.abs(startDate - today);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    const years = Math.floor(diffDays / 365.25);
+    const months = Math.floor((diffDays % 365.25) / 30.44);
+    const days = Math.floor((diffDays % 365.25) % 30.44);
+
+
+    return `${years} Tahun ${months} Bulan ${days} Hari`;
+}
+
+function calculateAge(birthDateStr) {
+    if (!birthDateStr) return "-";
+    const date = new Date(birthDateStr);
+    if (isNaN(date)) return "-";
+
+    const today = new Date();
+    let age = today.getFullYear() - date.getFullYear();
+    if (
+        today.getMonth() < date.getMonth() ||
+        (today.getMonth() === date.getMonth() && today.getDate() < date.getDate())
+    ) {
+        age--;
+    }
+    return age;
+}
+
+function getNextKGB(tmtKGB) {
+    if (!tmtKGB) return "-";
+    const tmt = new Date(tmtKGB);
+    if (isNaN(tmt)) return "-";
+
+    const nextKGB = new Date(tmt.getFullYear() + 2, tmt.getMonth(), tmt.getDate());
+    const nextKGBformatted = formatTanggalIndonesia(nextKGB.toISOString());
+    const diffText = getDetailedDiff(nextKGB); 
+
+    return `${nextKGBformatted} (${diffText} lagi)`;
+}
+
+function getMasaKerja(tmtStr) {
+    if (!tmtStr) return "-";
+    const tmt = new Date(tmtStr);
+    if (isNaN(tmt)) return "-";
+
+    const today = new Date();
+
+    let years = today.getFullYear() - tmt.getFullYear();
+    let months = today.getMonth() - tmt.getMonth();
+    let days = today.getDate() - tmt.getDate();
+
+    if (days < 0) {
+        months--;
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    return `${years} Tahun ${months} Bulan ${days} Hari`;
+}
+
+// ======== ANIMASI DAN TAMPILAN ========
+function typeWriter(element, text, agent, callback, speed = 10) {
+    element.innerHTML = ""; 
+    let i = 0;
+    let buffer = "";
+    let nameShown = false;
+
+    function typing() {
+        if (i < text.length) {
+            const char = text.charAt(i);
+            buffer += char;
+
+            element.innerHTML = buffer
+                .split("\n")
+                .map(line => {
+                    // Penyorotan warna
+                    if (line.includes("[DATA IDENTITAS]") ||
+                        line.includes("[DATA DIKUMTI & DIKMILTI]") ||
+                        line.includes("[DATA KGB]") ||
+                        line.includes("[DATA JABATAN]") ||
+                        line.includes("[SECURITY FOOTNOTE]") ||
+                        line.includes("[TANDA JASA/KEHORMATAN]")) {
+                        return `<span class="highlight-section">${line}</span>`;
+                    }
+                    // Animasi RAHASIA
+                    if (line.includes("RAHASIA")) {
+                        return line.replace(
+                            "RAHASIA",
+                            `<span class="secret-alert">RAHASIA</span>`
+                        );
+                    }
+                    return line;
+                })
+                .join("\n");
+
+            // *** LOGIKA TAMPIL FOTO OTOMATIS DI SINI ***
+            // Foto akan muncul saat string "NAMA LENGKAP" telah diketik.
+            if (!nameShown && element.textContent.includes("NAMA LENGKAP")) {
+                nameShown = true;
+                setTimeout(() => {
+                    if (agent.foto) {
+                        photoEl.src = agent.foto; 
+                        photoEl.style.display = "block";
+                        setTimeout(() => (photoEl.style.opacity = 1), 100); // Efek Fade In
+                    }
+                }, 200);
+            }
+
+            i++;
+            outputPanel.scrollTop = outputPanel.scrollHeight;
+            setTimeout(typing, speed);
+        } else if (callback) callback();
+    }
+
+    typing();
+}
+
+
+function simulateAccessSequence(element, callback){
+    const steps = [
+        ">>> initializing secure connection...",
+        ">>> accessing PUSLAT KODIKLATAU database node...",
+        ">>> verifying security clearance...",
+        ">>> clearance level verified (LEVEL-A) ✔",
+        ">>> retrieving data riwayat hidup personel... ACCESS GRANTED"
+    ];
+    let i=0;
+    element.textContent="";
+    function nextStep(){
+        if(i<steps.length){
+            element.textContent += steps[i] + "\n";
+            outputPanel.scrollTop = outputPanel.scrollHeight;
+            i++;
+            setTimeout(nextStep, 600);
+        } else { setTimeout(callback, 600); }
+    }
+    nextStep();
+}
+
+
+// ======== FILTER DAN TAMPILKAN NAMA ANGGOTA ========
+function showMemberButtons(keyword){
+    memberBtnContainer.innerHTML = "";
+    const selectedCategory = document.getElementById("category-filter").value;
+
+    const filtered = personnelDB.filter(p => {
+        const kw = keyword.toLowerCase();
+        const matchKeyword = 
+          (p.satker && p.satker.toLowerCase().includes(kw)) ||
+          (p.nrp_nip && String(p.nrp_nip).toLowerCase().includes(kw)) ||
+          (p.nama_lengkap && p.nama_lengkap.toLowerCase().includes(kw)) ||
+          (p.jabatan && p.jabatan.toLowerCase().includes(kw)) ||
+          (p.kategori && p.kategori.toLowerCase().includes(kw));
+        const matchCategory = !selectedCategory || p.kategori === selectedCategory;
+        return matchKeyword && matchCategory;
+    });
+
+    if(filtered.length === 0){
+        memberBtnContainer.innerHTML = '<span class="not-found">❌ No members found for this filter</span>';
+    } else {
+        filtered.forEach(agent => {
+            const btn = document.createElement("button");
+            btn.textContent = agent.nama_lengkap;
+            btn.onclick = () => displayAgent(agent);
+            memberBtnContainer.appendChild(btn);
+        });
+    }
+}
+    
+// ======== TAMPILKAN BIODATA DETAIL ========
+function displayAgent(agent) {
+    // 1. Reset tampilan
+    dossierEl.textContent = "Processing...";
+    photoEl.style.display = "none";
+    photoEl.style.opacity = 0; 
+    
+    // 2. Set sumber foto
+    if (agent.photo) {
+        photoEl.src = agent.photo;
+    } else {
+        photoEl.src = "https://drive.google.com/uc?export=view&id=13KgFyUzOSIUhfK8qw0skSLOEq5Yj0xp2"; // Default
+    }
+
+    // 3. Hapus tombol dokumen sebelumnya
+    const oldDocs = agentContainer.querySelector(".doc-buttons");
+    if (oldDocs) oldDocs.remove();
+
+    // 4. Mulai simulasi loading
+    simulateAccessSequence(dossierEl, () => {
+        const masaKerja = getMasaKerja(agent.tmt_jabatan);
+        const nextKGBInfo = getNextKGB(agent.tmt_kgb);
+        const usia = calculateAge(agent.tanggal_lahir);
+
+        // ======== TEMPLATE DATA PERSONEL ========
+        const dossier = `
+========================================
+|    FILE: PERSONEL PUSLAT KODIKLATAU    |
+|    CLASSIFICATION: RAHASIA             |
+========================================
+
+[DATA IDENTITAS]
+--------------------------------------------------
+NAMA LENGKAP        : ${agent.nama_lengkap || "-"}
+PANGKAT             : ${agent.pangkat_gol || "-"}
+KORPS               : ${agent.korps || "-"}
+PROFESI             : ${agent.profesi || "-"}
+SPESIALISASI        : ${agent.spesialisasi || "-"}
+NRP/NIP             : ${agent.nrp_nip || "-"}
+TEMPAT/TGL LAHIR    : ${agent.tempat_lahir || "-"}, ${formatTanggalIndonesia(agent.tanggal_lahir)}
+USIA                : ${usia} Tahun
+AGAMA               : ${agent.agama || "-"}
+
+[DATA DIKUMTI & DIKMILTI]
+--------------------------------------------------
+DIKUMTI             : ${agent.dikumti || "-"}
+TMT DIKUMTI         : ${agent.tmt_dikumti || "-"}
+DIKMILTI            : ${agent.dikmilti || "-"}
+TMT DIKMILTI        : ${agent.tmt_dikmilti || "-"}
+
+[DATA JABATAN]
+--------------------------------------------------
+JABATAN YG LALU     : ${agent.jabatan_yg_lalu || "-"}
+JABATAN SAAT INI    : ${agent.jabatan || "-"}
+TMT JABATAN         : ${formatTanggalIndonesia(agent.tmt_jabatan)}
+MASA KERJA JABATAN  : ${masaKerja}
+
+[TANDA JASA/KEHORMATAN]
+--------------------------------------------------
+TANDA JASA/KEHORMATAN
+TERTINGGI            : ${agent.tanda_jasa_tertinggi || "-"}
+
+[SECURITY FOOTNOTE]   <button class="catatan-btn" onclick="window.location='catatanpersonel.html?nama='+encodeURIComponent('${agent.nama_lengkap}')">CATATAN</button>
+-----------------------------------------------------
+-----------------------------------------------------
+
+This dossier is property of PUSLAT KODIKLATAU.
+Unauthorized access or duplication is punishable under applicable law.
+
+<END OF FILE>
+========================================
+Retrieved on: ${new Date().toLocaleString()}
+        `;
+
+        // Ketik animasi biodata
+        typeWriter(dossierEl, dossier, agent, () => {
+            const docContainer = document.createElement("div");
+            docContainer.className = "doc-buttons";
+
+            // Ambil link dari kolom spreadsheet
+            // Ambil link riwayat hidup dari Google Sheet
+const mergedLink = agent.merged_doc_url_riwayat_hidup_personel_puslat;
+let pdfLink = "#";
+
+if (mergedLink.includes("drive.google.com")) {
+    const match = mergedLink.match(/[-\w]{25,}/);
+    if (match) {
+        const fileId = match[0];
+        pdfLink = `https://drive.google.com/file/d/${fileId}/view`;
+    }
+}
+
+            // Tombol di bawah biodata
+            const docs = [
+                { label: "Pemuktahiran Data", url: "coomingsoon.html" },
+                { label: "Riwayat Hidup", url: pdfLink },
+                { label: "KU-1", url: "comingsoon.html" }
+            ];
+
+            docs.forEach(d => {
+                const btn = document.createElement("button");
+                btn.textContent = d.label;
+                btn.onclick = () => {
+                    if (d.url === "#" || !d.url || d.url.includes("undefined")) {
+                        alert("❌ File belum tersedia untuk personel ini.");
+                        return;
+                  }
+                   window.location.href = d.url;
+                };
+                docContainer.appendChild(btn);
+            });
+
+            agentContainer.appendChild(docContainer);
+        });
+    });
+}
+
+
+// ======== EVENT SEARCH ========
+searchInput.addEventListener("input", ()=>{
+    dossierEl.textContent="Biodata will appear after clicking the member button";
+    const oldDocs = agentContainer.querySelector(".doc-buttons");
+    if(oldDocs) oldDocs.remove();
+    memberBtnContainer.innerHTML="";
+    // Sembunyikan foto saat mencari baru
+    photoEl.style.display = "none";
+    photoEl.style.opacity = 0;
+});
+
+searchInput.addEventListener("keydown", e=>{
+    if(e.key==="Enter"){
+        const query = searchInput.value.trim();
+        if(query) showMemberButtons(query);
+    }
+});
+  
+</script>
+   <script>
+// Fullscreen untuk Android WebView / PWA
+function forceFullscreen() {
+  const elem = document.documentElement;
+
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(()=>{});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+
+// Deteksi jika dijalankan sebagai PWA atau WebView
+function isStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches || 
+          window.navigator.standalone === true);
+}
+
+// Jika PWA → langsung fullscreen
+if (isStandalone()) {
+  setTimeout(forceFullscreen, 500);
+}
+
+// Jika Android WebView → auto fullscreen
+if (navigator.userAgent.includes("wv") || navigator.userAgent.includes("Android")) {
+  setTimeout(forceFullscreen, 800);
+}
+
+// Browser biasa tetap butuh klik pertama
+document.addEventListener("click", function() {
+  forceFullscreen();
+}, { once: true });
+</script>
+<script>
+// Fullscreen untuk Android WebView / PWA
+function forceFullscreen() {
+  const elem = document.documentElement;
+
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(()=>{});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+
+// Deteksi jika dijalankan sebagai PWA atau WebView
+function isStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches || 
+          window.navigator.standalone === true);
+}
+
+// Jika PWA → langsung fullscreen
+if (isStandalone()) {
+  setTimeout(forceFullscreen, 500);
+}
+
+// Jika Android WebView → auto fullscreen
+if (navigator.userAgent.includes("wv") || navigator.userAgent.includes("Android")) {
+  setTimeout(forceFullscreen, 800);
+}
+
+// Browser biasa tetap butuh klik pertama
+document.addEventListener("click", function() {
+  forceFullscreen();
+}, { once: true });
+</script>
+<script>
+function tampilkanTanggal() {
+  const now = new Date();
+
+  const hari = String(now.getDate()).padStart(2, '0');
+  const bulan = String(now.getMonth() + 1).padStart(2, '0');
+  const tahun = now.getFullYear();
+
+  const jam = String(now.getHours()).padStart(2, '0');
+  const menit = String(now.getMinutes()).padStart(2, '0');
+  const detik = String(now.getSeconds()).padStart(2, '0');
+
+  const format = `${hari}-${bulan}-${tahun} ${jam}:${menit}:${detik}`;
+
+  document.getElementById("tanggal").textContent = format;
+}
+
+// update tiap detik biar live
+setInterval(tampilkanTanggal, 1000);
+tampilkanTanggal();
+</script>
+</body>
+</html>
