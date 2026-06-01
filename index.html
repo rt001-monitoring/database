@@ -81,11 +81,13 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     border:1px solid rgba(0,255,0,0.4);
     border-radius:5px;
     backdrop-filter:blur(4px);
+
+    display:flex;              /* ⭐ penting */
+    flex-direction:column;     /* ⭐ susun ke bawah */
+    gap:10px;                  /* ⭐ jarak antar video & tombol */
+
     overflow:hidden;
     position:relative;
-
-    display:flex;          /* 🔥 TAMBAHAN */
-    flex-direction:column; /* 🔥 TAMBAHAN */
 }
 
 #monitor-video{
@@ -115,9 +117,8 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     }
 }
 .video-dropdown{
-    width: 30%;            /* sama dengan box kiri */
-    margin-left: 20px;     /* sejajar padding dashboard */
-    margin-top: 10px;      /* jarak dari kotak */
+    width:100%;
+    margin-top:0;   /* hapus dorongan aneh */
 }
 
 .video-dropdown button{
