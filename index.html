@@ -76,11 +76,20 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
 
 .box-kiri{
     width:30%;
-    height:300px; /* tinggi tetap */
+    height:300px;
     background:rgba(0,0,0,0.25);
     border:1px solid rgba(0,255,0,0.4);
     border-radius:10px;
     backdrop-filter:blur(4px);
+    overflow:hidden; /* penting */
+    position:relative;
+}
+
+#monitor-video{
+    width:100%;
+    height:100%;
+    object-fit:cover; /* isi penuh kotak */
+    display:block;
 }
 
 .box-kanan{
