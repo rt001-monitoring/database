@@ -107,11 +107,25 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
 
 .box-kanan{
     width:70%;
-    height:500px; /* tinggi tetap */
+    height:500px;
     background:rgba(0,0,0,0.25);
     border:1px solid rgba(0,255,0,0.4);
     border-radius:10px;
     backdrop-filter:blur(4px);
+    position:relative; /* wajib */
+}
+
+.judul-box-kanan{
+    position:absolute;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#00FF00;
+    font-family:'Courier New', monospace;
+    font-size:20px;
+    font-weight:bold;
+    text-align:center;
+    text-shadow:0 0 8px #00FF00;
 }
 
 @media(max-width:768px){
@@ -210,7 +224,9 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
 </div>
 
     <div class="box-kanan">
-        <!-- isi kotak kanan -->
+
+    <div class="judul-box-kanan">
+        DATA MONITORING WARGA RT 001
     </div>
 
 </div>
