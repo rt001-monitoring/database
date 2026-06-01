@@ -366,7 +366,20 @@ function typeWriter(element, text, cb){
     else if(cb) cb();
   }
   t();
+const text = "SISTEM MONITORING AKTIF... KONEKSI AMAN... MEMUAT DATA...";
+let i = 0;
+
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typingText").textContent += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 70);
+  }
 }
+
+typeWriter();
+}
+
 
 /* ---------- Tampilkan biodata saat klik ---------- */
 function displayAgent(agent){
@@ -542,19 +555,6 @@ function showOnlineUsers(){
 function toggleMenu(){
     const menu = document.getElementById("menu");
     menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-}
-const text = "SISTEM MONITORING AKTIF... KONEKSI AMAN... MEMUAT DATA...";
-let i = 0;
-
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("typingText").textContent += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 70);
-  }
-}
-
-typeWriter();
 }
     
 </script>
