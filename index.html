@@ -81,18 +81,13 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     border:1px solid rgba(0,255,0,0.4);
     border-radius:5px;
     backdrop-filter:blur(4px);
-
-    display:flex;              /* ⭐ penting */
-    flex-direction:column;     /* ⭐ susun ke bawah */
-    gap:10px;                  /* ⭐ jarak antar video & tombol */
-
-    overflow:hidden;
+    overflow:hidden; /* penting */
     position:relative;
 }
 
 #monitor-video{
     width:100%;
-    height:70%;   /* 🔥 penting: kasih ruang bawah */
+    height:100%;
     object-fit:contain;
     display:block;
 }
@@ -117,8 +112,8 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     }
 }
 .video-dropdown{
-    width:30%;        /* sama kayak box kiri */
-    margin-top:10px;  /* jarak dari box */
+    margin-top:10px;
+    position:relative;
 }
 
 .video-dropdown button{
@@ -135,8 +130,6 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     flex-direction:column;
     gap:5px;
     margin-top:5px;
-    position:relative; /* 🔥 penting biar gak ketiban */
-    z-index:10;
 }
 
 .dropdown-content button{
@@ -144,6 +137,14 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     border:1px solid #00FF00;
     color:#00FF00;
 }
+<div class="video-dropdown">
+    <button onclick="toggleMenu()">MENU ▼</button>
+
+    <div id="menu" class="dropdown-content">
+        <button onclick="alert('Aksi 1')">Kontrol 1</button>
+        <button onclick="alert('Aksi 2')">Kontrol 2</button>
+        <button onclick="alert('Aksi 3')">Kontrol 3</button>
+    </div>
 </div>
 </style>
 </head>
@@ -184,19 +185,13 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
 </header>
 
 <div class="dashboard-boxes">
-   <div class="box-kiri">
-    <video id="monitor-video"></video>
-</div>
 
-<div class="video-dropdown">
-    <button onclick="toggleMenu()">MENU ▼</button>
+    <div class="box-kiri">
 
-    <div id="menu" class="dropdown-content">
-        <button>Aksi 1</button>
-        <button>Aksi 2</button>
-        <button>Aksi 3</button>
-    </div>
-</div>
+    <video id="monitor-video" autoplay muted loop playsinline>
+        <source src="animasi.mp4" type="video/mp4">
+        Browser tidak mendukung video.
+    </video>
 
 </div>
 
