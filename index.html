@@ -376,7 +376,7 @@ function startTyping() {
 
   run();
 }
-
+window.addEventListener("load", startTyping);
 /* ---------- Tampilkan biodata saat klik ---------- */
 function displayAgent(agent){
   // convert some common fields safely
@@ -552,7 +552,7 @@ function toggleMenu(){
     const menu = document.getElementById("menu");
     menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 }
-window.addEventListener("load", startTyping);
+
 </script>
 <script>
 // ===== FULLSCREEN ENGINE untuk Tablet / WebView / Android =====
