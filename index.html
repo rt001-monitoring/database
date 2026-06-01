@@ -84,6 +84,19 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     overflow:hidden; /* penting */
     position:relative;
 }
+.typing-text{
+    position:absolute;
+    top:10px;   /* atas video (ubah ke bottom:10px kalau mau bawah) */
+    left:10px;
+    right:10px;
+    z-index:5;
+    color:#00FF00;
+    font-family:'Courier New', monospace;
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    border-right:2px solid #00FF00;
+}
 
 #monitor-video{
     width:100%;
@@ -187,6 +200,7 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
 <div class="dashboard-boxes">
 
     <div class="box-kiri">
+    <div class="typing-text" id="typingText"></div>
 
     <video id="monitor-video" autoplay muted loop playsinline>
         <source src="animasi.mp4" type="video/mp4">
@@ -529,7 +543,19 @@ function toggleMenu(){
     const menu = document.getElementById("menu");
     menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 }
+const text = "SISTEM MONITORING AKTIF... KONEKSI AMAN... MEMUAT DATA...";
+let i = 0;
 
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typingText").textContent += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 70);
+  }
+}
+
+typeWriter();
+    
 </script>
 <script>
 // ===== FULLSCREEN ENGINE untuk Tablet / WebView / Android =====
