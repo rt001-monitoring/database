@@ -358,28 +358,24 @@ function simulateAccessSequence(element, callback){
   }
   next();
 }
-function typeWriter(element, text, cb){
-  element.textContent = "";
-  let i=0;
-  function t(){
-    if(i<text.length){ element.textContent += text.charAt(i); i++; outputPanel.scrollTop = outputPanel.scrollHeight; setTimeout(t, 6); }
-    else if(cb) cb();
+function startTyping() {
+  const el = document.getElementById("typingText");
+
+  const text = "SISTEM MONITORING AKTIF... KONEKSI AMAN... MEMUAT DATA...";
+  let i = 0;
+
+  el.textContent = "";
+
+  function run() {
+    if (i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(run, 70);
+    }
   }
-  t();
-const text = "SISTEM MONITORING AKTIF... KONEKSI AMAN... MEMUAT DATA...";
-let i = 0;
 
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("typingText").textContent += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 70);
-  }
+  run();
 }
-
-typeWriter();
-}
-
 
 /* ---------- Tampilkan biodata saat klik ---------- */
 function displayAgent(agent){
@@ -556,7 +552,7 @@ function toggleMenu(){
     const menu = document.getElementById("menu");
     menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 }
-    
+window.addEventListener("load", startTyping);
 </script>
 <script>
 // ===== FULLSCREEN ENGINE untuk Tablet / WebView / Android =====
