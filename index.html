@@ -115,11 +115,9 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
     }
 }
 .video-dropdown{
-    width:100%;
-    padding:8px;
-    display:flex;
-    flex-direction:column;
-    gap:6px;
+    width: 30%;            /* sama dengan box kiri */
+    margin-left: 20px;     /* sejajar padding dashboard */
+    margin-top: 10px;      /* jarak dari kotak */
 }
 
 .video-dropdown button{
@@ -185,21 +183,24 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
 </header>
 
 <div class="dashboard-boxes">
-    <div class="box-kiri">
+   <div class="box-kiri">
 
     <video id="monitor-video" autoplay muted loop playsinline>
         <source src="animasi.mp4" type="video/mp4">
     </video>
 
-    <div class="video-dropdown">
-        <button onclick="toggleMenu()">MENU ▼</button>
+</div>
 
-        <div id="menu" class="dropdown-content">
-            <button onclick="alert('Aksi 1')">Kontrol 1</button>
-            <button onclick="alert('Aksi 2')">Kontrol 2</button>
-            <button onclick="alert('Aksi 3')">Kontrol 3</button>
-        </div>
+<!-- 🔥 INI PINDAH KE LUAR box-kiri -->
+<div class="video-dropdown">
+    <button onclick="toggleMenu()">MENU ▼</button>
+
+    <div id="menu" class="dropdown-content">
+        <button onclick="alert('Aksi 1')">Kontrol 1</button>
+        <button onclick="alert('Aksi 2')">Kontrol 2</button>
+        <button onclick="alert('Aksi 3')">Kontrol 3</button>
     </div>
+</div>
 
 </div>
 
