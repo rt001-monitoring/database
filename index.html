@@ -106,7 +106,8 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
 </head>
 <body>
 
-<video autoplay muted loop id="bg-video"><source src="" type="video/mp4">Browser Anda tidak mendukung video tag.</video>
+<video autoplay muted loop id="bg-video">
+<source src="" type="video/mp4">Browser Anda tidak mendukung video tag.</video>
 <div class="recording-indicator">● RECORDING</span>
 </div>
 <div class="logo-top-right">
@@ -142,8 +143,13 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
 <div class="dashboard-boxes">
 
     <div class="box-kiri">
-        <!-- isi kotak kiri -->
-    </div>
+
+    <video id="monitor-video" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+        Browser tidak mendukung video.
+    </video>
+
+</div>
 
     <div class="box-kanan">
         <!-- isi kotak kanan -->
