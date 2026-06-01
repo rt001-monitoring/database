@@ -111,6 +111,41 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
         width:100%;
     }
 }
+.video-dropdown{
+    margin-top:10px;
+    position:relative;
+}
+
+.video-dropdown button{
+    width:100%;
+    padding:10px;
+    background:transparent;
+    border:1px solid #00FF00;
+    color:#00FF00;
+    cursor:pointer;
+}
+
+.dropdown-content{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    margin-top:5px;
+}
+
+.dropdown-content button{
+    background:rgba(0,0,0,0.3);
+    border:1px solid #00FF00;
+    color:#00FF00;
+}
+<div class="video-dropdown">
+    <button onclick="toggleMenu()">MENU ▼</button>
+
+    <div id="menu" class="dropdown-content">
+        <button onclick="alert('Aksi 1')">Kontrol 1</button>
+        <button onclick="alert('Aksi 2')">Kontrol 2</button>
+        <button onclick="alert('Aksi 3')">Kontrol 3</button>
+    </div>
+</div>
 </style>
 </head>
 <body>
