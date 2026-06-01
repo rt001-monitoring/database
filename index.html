@@ -68,6 +68,41 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
   width: 150px; /* sesuaikan ukuran */
   height: auto;
 }
+.dashboard-boxes{
+    display:flex;
+    gap:20px;
+    padding:20px;
+    flex:1;
+}
+
+.box-kiri{
+    width:30%;
+    min-height:500px;
+    background:rgba(0,0,0,0.25);
+    border:1px solid rgba(0,255,0,0.4);
+    border-radius:10px;
+    backdrop-filter:blur(4px);
+}
+
+.box-kanan{
+    flex:1;
+    min-height:500px;
+    background:rgba(0,0,0,0.25);
+    border:1px solid rgba(0,255,0,0.4);
+    border-radius:10px;
+    backdrop-filter:blur(4px);
+}
+
+@media(max-width:768px){
+    .dashboard-boxes{
+        flex-direction:column;
+    }
+
+    .box-kiri,
+    .box-kanan{
+        width:100%;
+    }
+}
 </style>
 </head>
 <body>
@@ -105,17 +140,16 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
     </div>
 </header>
 
-<div class="main-container">
-    <div class="search-panel">        
-        
-        <div id="member-buttons"></div>
+<div class="dashboard-boxes">
+
+    <div class="box-kiri">
+        <!-- isi kotak kiri -->
     </div>
 
-    <div class="output-panel" id="output">
-        <div class="agent-profile" id="agent-container">            
-            <img id="agent-photo" src="" alt="Foto Personel" />
-        </div>
+    <div class="box-kanan">
+        <!-- isi kotak kanan -->
     </div>
+
 </div>
 
 <!-- PRO badge -->
