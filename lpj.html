@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>evolution is my REVOLUTION</title>
+
+<style>
+
+body{
+  background:#000;
+  color:#00ff00;
+  font-family:"Courier New", monospace;
+  margin:0;
+  padding:8px;
+  overflow:hidden;
+}
+
+/* LOADING */
+#loading{
+  padding:20px;
+  font-size:12px;
+}
+
+.hidden{
+  display:none;
+}
+
+/* RUNNING TEXT */
+#runningText{
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  margin-bottom:10px;
+  font-size:12px;
+  font-weight:bold;
+  color:#ff0000;
+  text-shadow:0 0 5px #ff0000;
+}
+
+#runningText span{
+  display:inline-block;
+  padding-left:100%;
+  animation:runText 15s linear infinite;
+}
+
+@keyframes runText{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-100%);
+  }
+}
+
+/* TERMINAL */
+#terminalBox{
+  padding:10px;
+  height:78vh;
+  overflow:hidden;
+  position:relative;
+}
+
+pre{
+  margin:0;
+  white-space:pre;
+  line-height:1.5;
+  font-size:12px;
+  font-family:"Courier New", monospace;
+}
+
+/* CURSOR */
+.typing{
+  border-right:2px solid #00ff00;
+  animation:blinkCursor .7s infinite;
+}
+
+@keyframes blinkCursor{
+  50%{
+    border-color:transparent;
+  }
+}
+
+/* BLINK MERAH */
+.blink-red{
+  color:#ff0000;
+  animation:blinkRed .5s infinite;
+}
+
+@keyframes blinkRed{
+  0%,100%{
+    color:#ff0000;
+  }
+
+  50%{
+    color:#330000;
+  }
+}
+
+/* BUTTON */
+.button-container{
+  text-align:center;
+  margin-top:15px;
+}
+
+button{
+  background:#000;
+  color:#00ff00;
+  border:1px solid #00ff00;
+  padding:8px 18px;
+  margin:0 5px;
+  cursor:pointer;
+  border-radius:8px;
+  font-family:"Courier New", monospace;
+  font-size:12px;
+}
+
+button:hover{
+  background:#00ff00;
+  color:#000;
+}
+
+.download-btn{
+  border-color:#ff0000;
+  color:#ff0000;
+  animation:blinkRed .5s infinite;
+}
+
+.download-btn:hover{
+  background:#ff0000;
+  color:#000;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+  pre{
+    font-size:10px;
+  }
+}
+
+@media(max-width:600px){
+
+  pre{
+    font-size:8px;
+  }
+}
+table{
+  border-collapse:collapse;
+  width:max-content;
+  min-width:100%;
+  color:#00ff00;
+  font-size:12px;
+}
+
+th,td{
+  border:1px solid #00ff00;
+  padding:6px 10px;
+  text-align:center;
+  white-space:nowrap;
+}
+
+th{
+  background:#001100;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+td.nama{
+  text-align:left;
+}
+.title-main{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.title-sub{
+  text-align:center;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+.info-text{
+  font-size:10px;
+  line-height:1.6;
+  margin-bottom:15px;
+}
+.info-row{
+  display:flex;
+  gap:10px;
+}
+
+.label{
+  width:50px;
+}
+
+.value{
+  flex:1;
+}
+thead th{
+  position:sticky;
+  top:0;
+  background:#001100;
+  z-index:10;
+}
+#terminal{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+#headerArea{
+  flex:none;
+  background:#000;
+  padding-bottom:10px;
+}
+
+#tableArea{
+  flex:1;
+  overflow:auto;
+  border-top:1px solid #00ff00;
+  border-bottom:1px solid #00ff00;
+  min-height:0;
+}
+#tableArea table{
+  margin-bottom:1px;
+}
+
+#tableArea thead th{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#001100;
+
+  border-top:1px solid #00ff00;
+  border-bottom:1px solid #00ff00;
+  border-left:1px solid #00ff00;
+  border-right:1px solid #00ff00;
+}
+.datetime-box{
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:12px;
+  color:#ff0000;
+  font-family:"Courier New", monospace;
+  animation:blinkDate 0.5s infinite;
+}
+
+@keyframes blinkDate{
+  0%,100%{
+    opacity:1;
+  }
+  50%{
+    opacity:.3;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+
+<p>>> initializing connection...</p>
+
+<p class="hidden">
+>>> accessing database node...
+</p>
+
+<p class="hidden">
+>>> verifying security clearance...
+</p>
+
+<p class="hidden">
+>>> clearance level verified ✓
+</p>
+
+<p class="hidden">
+>>> retrieving iuran warga RT 001...
+</p>
+
+</div>
+
+<!-- MAIN -->
+<div id="main" class="hidden">
+<div id="runningText">
+<span>
+DATA INI BERSIFAT RAHASIA - HANYA UNTUK LINGKUNGAN RT 001 RW 001
+</span>
+</div>
+
+<div id="terminalBox">
+<div id="terminal" class="typing"></div>
+</div>
+
+</div>
+
+<!-- BUTTON -->
+</button>
+<button onclick="window.location.href='https://rt001-monitoring.github.io/database'">
+back to DATABASE
+</button>
+<button class="download-btn" onclick="downloadFile()">
+⬇ DOWNLOAD PDF
+</button>
+
+</div>
+
+<script>
+
+/* ================= LOADING ================= */
+
+const lines =
+document.querySelectorAll("#loading p");
+
+let delay = 700;
+
+lines.forEach((line,idx)=>{
+
+  setTimeout(()=>{
+
+    line.classList.remove("hidden");
+
+    if(idx === lines.length - 1){
+
+      setTimeout(()=>{
+
+        document.getElementById("loading")
+        .style.display = "none";
+
+        document.getElementById("main")
+        .classList.remove("hidden");
+
+        startTyping();
+
+      },1000);
+
+    }
+
+  },delay * (idx + 1));
+
+});
+
+
+
+/* ================= FIX WIDTH ================= */
+
+function fix(text,len){
+
+  text = String(text || "");
+
+  if(text.length > len){
+
+    return text.substring(0,len-1) + " ";
+
+  }
+
+  return text.padEnd(len," ");
+
+}
+
+/* ================= DOWNLOAD PDF ================= */
+
+async function downloadFile(){
+
+  try{
+
+    const url =
+    "https://script.google.com/macros/s/AKfycbyWOEHcGgdQzfju_kbsvFbO6chxbZY-8eW29rNnD6xipU1IZSx3kOeYZzfZPyWcWRVq/exec";
+
+    const response = await fetch(url);
+
+    if(!response.ok){
+      throw new Error("HTTP ERROR");
+    }
+
+    const base64 = await response.text();
+
+    const binary = atob(base64);
+
+    const bytes = new Uint8Array(binary.length);
+
+    for(let i=0;i<binary.length;i++){
+
+      bytes[i] = binary.charCodeAt(i);
+
+    }
+
+    const blob = new Blob([bytes],{
+      type:"application/pdf"
+    });
+
+    const blobUrl =
+    URL.createObjectURL(blob);
+
+    const link =
+    document.createElement("a");
+
+    link.href = blobUrl;
+
+    link.download =
+    "iuran_rt001.pdf";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(blobUrl);
+
+  }catch(err){
+
+    alert("DOWNLOAD FAILED");
+
+    console.error(err);
+
+  }
+
+}
+
+/* ================= START ================= */
+
+function startTyping(){
+
+  const terminal =
+  document.getElementById("terminal");
+
+  terminal.innerHTML +=
+`----------------------------------------------------------------------------------------------------------
+FILE           : IURAN WARGA RT 001
+CLASSIFICATION : `;
+
+  const span =
+  document.createElement("span");
+
+  span.className = "blink-red";
+
+  terminal.appendChild(span);
+
+  const txt = "RAHASIA";
+
+  let i = 0;
+
+  function ketik(){
+
+    if(i < txt.length){
+
+      span.textContent += txt.charAt(i);
+
+      i++;
+
+      setTimeout(ketik,50);
+
+    }else{
+
+      tampilkanData();
+
+    }
+
+  }
+
+  ketik();
+
+}
+
+/* ================= TAMPILKAN DATA ================= */
+
+async function tampilkanData(){
+
+  const terminal =
+  document.getElementById("terminal");
+
+  terminal.innerHTML = `
+  <div id="headerArea">
+
+    <div class="title-main">
+      <div id="dateTime" class="datetime-box"></div>
+      RENCANA STRATEGIS (RENSTRA) PROGRAM KERJA DAN PEMBANGUNAN
+    </div>
+    <div class="title-sub">
+      PERIODE 2027 S.D. 2032
+    </div>
+
+    <div class="info-text">
+
+      <div class="info-row">
+        <span class="label">RT/RW</span>
+        <span class="value">: 001/004</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">KEL/KEC</span>
+        <span class="value">: PETIR/CIPONDOH</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">KOTA</span>
+        <span class="value">: TANGERANG</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">PROVINSI</span>
+        <span class="value">: BANTEN</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="tableArea">
+
+    <iframe
+      src="https://docs.google.com/spreadsheets/d/1kVQtm0LjKguiD2q1dOKQyBb14wXAW4p6i7Bhi-8kO5k/preview?gid=1073921615"
+      style="
+        width:100%;
+        height:100%;
+        border:none;
+        background:white;
+      ">
+    </iframe>
+
+  </div>
+  `;
+
+  updateDateTime();
+
+  terminal.classList.remove("typing");
+
+  document.getElementById("buttons")
+    .classList.remove("hidden");
+}
+function updateDateTime(){
+
+  const el = document.getElementById("dateTime");
+
+  if(!el) return;
+
+  const now = new Date();
+
+  const tgl =
+  now.toLocaleDateString("id-ID");
+
+  const jam =
+  now.toLocaleTimeString("id-ID");
+
+  el.textContent = `${tgl} ${jam}`;
+
+}
+
+updateDateTime();
+setInterval(updateDateTime,1000);
+/* ================= FULLSCREEN ================= */
+
+function forceFullscreen(){
+
+  const elem =
+  document.documentElement;
+
+  if(elem.requestFullscreen){
+
+    elem.requestFullscreen()
+    .catch(()=>{});
+
+  }
+
+}
+
+document.addEventListener("click",()=>{
+
+  forceFullscreen();
+
+},{ once:true });
+
+</script>
+
+</body>
+</html>
