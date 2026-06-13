@@ -356,30 +356,20 @@ lines.forEach((line,idx)=>{
 
 /* ================= FETCH DATA ================= */
 
-async function fetchData(){
+async function loadSheet() {
 
-  try{
+  const url =
+  "https://docs.google.com/spreadsheets/d/1Qjj6GrxCmKumoViZjRgMz0eoGi4sMEJc/export?format=csv&gid=1073921615";
 
-    const url =
-    "https://script.google.com/macros/s/AKfycbywkgrwElSYkpVKu-PlZhy_UlDl1i-IQ7m6r4NlDPoRYbyLc-ylqTB4mqumFO4QPevW/exec";
+  const res = await fetch(url);
 
-    const res = await fetch(url);
+  const csv = await res.text();
 
-    if(!res.ok){
-      throw new Error("HTTP ERROR");
-    }
-
-    return await res.json();
-
-  }catch(err){
-
-    console.error(err);
-
-    return [];
-
-  }
-
+  return csv
+    .split("\n")
+    .map(row => row.split(","));
 }
+const data = await loadSheet();
 
 /* ================= FIX WIDTH ================= */
 
@@ -509,9 +499,7 @@ async function tampilkanData(){
   const terminal =
   document.getElementById("terminal");
 
-  try{
-
-    const data = await fetchData();
+  try{    
  
     // ambil info atas
     const info = `
