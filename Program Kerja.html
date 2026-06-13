@@ -484,73 +484,57 @@ async function tampilkanData(){
   const terminal =
   document.getElementById("terminal");
 
-  const data = await loadSheet();
-
-  let html = `
-  <table>
-    <thead>
-      <tr>
-        <th>NO</th>
-        <th>KEGIATAN</th>
-        <th>JLH</th>
-        <th>SAT</th>
-        <th>KETERANGAN</th>
-      </tr>
-    </thead>
-    <tbody>
-  `;
-
-  data.forEach(row => {
-
-    const no = (row[0] || "").trim();
-    const kegiatan = (row[1] || "").trim();
-    const jlh = (row[2] || "").trim();
-    const sat = (row[3] || "").trim();
-    const ket = (row[4] || "").trim();
-
-    // skip header / judul / kosong
-    if(
-      no === "" ||
-      isNaN(no) ||
-      kegiatan === "" ||
-      kegiatan.toLowerCase().includes("kegiatan") ||
-      kegiatan.toLowerCase().includes("tahun")
-    ){
-      return;
-    }
-
-    html += `
-      <tr>
-        <td>${no}</td>
-        <td style="text-align:left">${kegiatan}</td>
-        <td>${jlh}</td>
-        <td>${sat}</td>
-        <td>${ket}</td>
-      </tr>
-    `;
-
-  });
-
-  html += `
-    </tbody>
-  </table>
-  `;
-
   terminal.innerHTML = `
-    <div id="headerArea">
-      <div class="title-main">
-        <div id="dateTime" class="datetime-box"></div>
-        PROGRAM KERJA RT/001-RW/004
-      </div>
+  <div id="headerArea">
 
-      <div class="title-sub">
-        DURI KOSAMBI PERIODE 2027 S.D. 2032
-      </div>
+    <div class="title-main">
+      <div id="dateTime" class="datetime-box"></div>
+      PROGRAM KERJA RT/001-RW/004
     </div>
 
-    <div id="tableArea">
-      ${html}
+    <div class="title-sub">
+      DURI KOSAMBI PERIODE 2027 S.D. 2032
     </div>
+
+    <div class="info-text">
+
+      <div class="info-row">
+        <span class="label">RT/RW</span>
+        <span class="value">: 001/004</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">KEL/KEC</span>
+        <span class="value">: PETIR/CIPONDOH</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">KOTA</span>
+        <span class="value">: TANGERANG</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">PROVINSI</span>
+        <span class="value">: BANTEN</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="tableArea">
+
+    <iframe
+      src="https://docs.google.com/spreadsheets/d/1Qjj6GrxCmKumoViZjRgMz0eoGi4sMEJc/preview?gid=1073921615"
+      style="
+        width:100%;
+        height:100%;
+        border:none;
+        background:white;
+      ">
+    </iframe>
+
+  </div>
   `;
 
   updateDateTime();
