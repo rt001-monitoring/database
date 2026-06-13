@@ -478,13 +478,37 @@ CLASSIFICATION : `;
 }
 
 /* ================= TAMPILKAN DATA ================= */
+async function loadSheet(){
 
+  const url =
+  "https://docs.google.com/spreadsheets/d/1Qjj6GrxCmKumoViZjRgMz0eoGi4sMEJc/export?format=csv&gid=1073921615";
+
+  const res = await fetch(url);
+
+  const text = await res.text();
+
+  return text
+    .split("\n")
+    .map(r => r.split(","));
+}
 async function tampilkanData(){
 
   const terminal =
   document.getElementById("terminal");
 
-  const data = await loadSheet();
+  let data = [];
+
+try {
+  data = await loadSheet();
+} catch (e) {
+  console.log(e);
+  data = [];
+}
+
+if(!data || data.length === 0){
+  terminal.innerHTML = "DATA GAGAL LOAD / SHEET PRIVATE";
+  return;
+}
 
   let html = `
   <table>
