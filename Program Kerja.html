@@ -485,11 +485,16 @@ async function loadSheet(){
 
   const res = await fetch(url);
 
+  if(!res.ok){
+    throw new Error("Gagal fetch sheet");
+  }
+
   const text = await res.text();
 
   return text
     .split("\n")
-    .map(r => r.split(","));
+    .map(r => r.split(","))
+    .filter(r => r.length > 1);
 }
 async function tampilkanData(){
 
@@ -497,6 +502,14 @@ async function tampilkanData(){
   document.getElementById("terminal");
 
   let data = [];
+
+try {
+  data = await loadSheet();
+} catch (e) {
+  console.log(e);
+  terminal.innerHTML = "GAGAL LOAD GOOGLE SHEET";
+  return;
+}
 
 try {
   data = await loadSheet();
