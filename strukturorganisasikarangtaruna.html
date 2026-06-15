@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>evolution is my REVOLUTION</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+}
+
+/* LOADING */
+#loading {
+  padding: 20px;
+  font-size: 12px;
+}
+
+.hidden { display: none; }
+
+/* MAIN FULLSCREEN */
+#main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* IFRAME FULL */
+#slideFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* CURSOR */
+.typing {
+  border-right: 2px solid #00ff00;
+  animation: blink 0.7s infinite;
+}
+@keyframes blink { 50% { border-color: transparent; } }
+</style>
+</head>
+
+<body>
+
+<!-- LOADING TERMINAL -->
+<div id="loading">
+  <p>>> initializing connection...</p>
+  <p class="hidden">>>> accessing secure node...</p>
+  <p class="hidden">>>> decrypting data...</p>
+  <p class="hidden">>>> access granted ✓</p>
+  <p class="hidden">>>> launching system...</p>
+</div>
+
+<!-- SLIDES FULLSCREEN -->
+<div id="main" class="hidden">
+  <iframe 
+    id="slideFrame"
+    src="https://docs.google.com/presentation/d/1rnx6h0sA6aQGzdkk2S_17pyZ9vUFuuCK/embed?start=true&loop=true&delayms=3000"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<script>
+/* LOADING EFFECT */
+const lines = document.querySelectorAll("#loading p");
+let delay = 700;
+
+lines.forEach((line, i) => {
+  setTimeout(() => {
+    line.classList.remove("hidden");
+
+    if (i === lines.length - 1) {
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("main").classList.remove("hidden");
+        forceFullscreen();
+      }, 800);
+    }
+  }, delay * (i + 1));
+});
+
+/* FULLSCREEN */
+function forceFullscreen() {
+  const el = document.documentElement;
+  if (el.requestFullscreen) {
+    el.requestFullscreen().catch(()=>{});
+  }
+}
+
+/* AUTO FULLSCREEN (ANDROID / PWA) */
+setTimeout(forceFullscreen, 1500);
+
+/* FALLBACK: klik pertama */
+document.addEventListener("click", () => {
+  forceFullscreen();
+}, { once: true });
+</script>
+<script>
+// Fullscreen untuk Android WebView / PWA
+function forceFullscreen() {
+  const elem = document.documentElement;
+
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(()=>{});
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+
+// Deteksi jika dijalankan sebagai PWA atau WebView
+function isStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches || 
+          window.navigator.standalone === true);
+}
+
+// Jika PWA → langsung fullscreen
+if (isStandalone()) {
+  setTimeout(forceFullscreen, 500);
+}
+
+// Jika Android WebView → auto fullscreen
+if (navigator.userAgent.includes("wv") || navigator.userAgent.includes("Android")) {
+  setTimeout(forceFullscreen, 800);
+}
+
+// Browser biasa tetap butuh klik pertama
+document.addEventListener("click", function() {
+  forceFullscreen();
+}, { once: true });
+</script>
+
+</body>
+</html>
