@@ -184,6 +184,22 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
         <button onclick="alert('Aksi 3')">Kontrol 3</button>
     </div>
 </div>
+.youtube-logo{
+    width:30%;
+    text-align:center;
+    margin-top:10px;
+}
+
+.youtube-logo img{
+    width:60px;
+    height:auto;
+    cursor:pointer;
+    transition:transform 0.3s ease;
+}
+
+.youtube-logo img:hover{
+    transform:scale(1.1);
+}
 </style>
 </head>
 <body>
@@ -235,7 +251,13 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
 
 </div>
 
-    <div class="box-kanan">
+<div class="youtube-logo">
+    <a href="https://youtube.com" target="_blank">
+        <img src="youtube.png" alt="YouTube">
+    </a>
+</div>
+
+<div class="box-kanan">
 
     <div class="judul-box-kanan">
         HEADLINE NEWS
