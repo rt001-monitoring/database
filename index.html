@@ -200,6 +200,32 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
 .youtube-logo img:hover{
     transform:scale(1.1);
 }
+.box-kiri-wrapper{
+    width:30%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.box-kiri{
+    width:100%;
+}
+
+.youtube-logo{
+    margin-top:10px;
+    text-align:center;
+}
+
+.youtube-logo img{
+    width:70px;
+    height:auto;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.youtube-logo img:hover{
+    transform:scale(1.1);
+}
 </style>
 </head>
 <body>
@@ -239,7 +265,7 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
     </div>
 </header>
 
-<div class="dashboard-boxes">
+<div class="box-kiri-wrapper">
 
     <div class="box-kiri">
     <div class="typing-text" id="typingText"></div>
@@ -252,9 +278,11 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
 </div>
 
 <div class="youtube-logo">
-    <a href="https://youtube.com" target="_blank">
-        <img src="youtube.png" alt="YouTube">
-    </a>
+        <a href="https://youtube.com/@namachannelanda" target="_blank">
+            <img src="youtube.png" alt="YouTube">
+        </a>
+    </div>
+
 </div>
 
 <div class="box-kanan">
