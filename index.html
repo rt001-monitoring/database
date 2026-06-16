@@ -226,6 +226,49 @@ input, select { background:transparent; border:1px solid #00FF00; color:#00FF00;
 .youtube-logo img:hover{
     transform:scale(1.1);
 }
+.dashboard-boxes{
+    display:flex;
+    gap:20px;
+    padding:20px;
+    align-items:flex-start;
+}
+
+.left-column{
+    width:30%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.box-kiri{
+    width:100%;
+}
+
+.box-kanan{
+    width:70%;
+    height:500px;
+    background:rgba(0,0,0,0.25);
+    border:1px solid rgba(0,255,0,0.4);
+    border-radius:10px;
+    backdrop-filter:blur(4px);
+    position:relative;
+}
+
+.youtube-logo{
+    margin-top:12px;
+    text-align:center;
+}
+
+.youtube-logo img{
+    width:50px;
+    height:auto;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.youtube-logo img:hover{
+    transform:scale(1.15);
+}
 </style>
 </head>
 <body>
@@ -265,34 +308,34 @@ DATE/TIME : <span class="code-private" id="tanggal"></span></p>
     </div>
 </header>
 
-<div class="box-kiri-wrapper">
+<div class="dashboard-boxes">
 
-    <div class="box-kiri">
-    <div class="typing-text" id="typingText"></div>
+    <!-- KOLOM KIRI -->
+    <div class="left-column">
 
-    <video id="monitor-video" autoplay muted loop playsinline>
-        <source src="animasi.mp4" type="video/mp4">
-        Browser tidak mendukung video.
-    </video>
+        <div class="box-kiri">
+            ...
+        </div>
 
-</div>
+        <div class="youtube-logo">
+            <a href="https://youtube.com/@namachannelanda" target="_blank">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+        </div>
 
-<div class="youtube-logo">
-        <a href="https://youtube.com/@namachannelanda" target="_blank">
-            <img src="youtube.png" alt="YouTube">
-        </a>
     </div>
 
-</div>
+    <!-- KOLOM KANAN -->
+    <div class="box-kanan">
 
-<div class="box-kanan">
+        <div class="judul-box-kanan">
+            HEADLINE NEWS
+        </div>
 
-    <div class="judul-box-kanan">
-        HEADLINE NEWS
-    </div>
+        <div class="subjudul-box-kanan">
+            RT.001 RW.004 KELURAHAN PETIR KECAMATAN CIPONDOH
+        </div>
 
-    <div class="subjudul-box-kanan">
-        RT.001 RW.004 KELURAHAN PETIR KECAMATAN CIPONDOH
     </div>
 
 </div>
